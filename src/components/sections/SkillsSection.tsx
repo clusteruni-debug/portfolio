@@ -70,10 +70,10 @@ export default function SkillsSection() {
         </ScrollReveal>
 
         {/* 3열 그리드: 각 그룹이 카드 형태 */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
           {skillGroups.map((group, groupIdx) => (
             <ScrollReveal key={group.title} delay={groupIdx * 0.1}>
-              <div className="rounded-2xl border border-white/5 bg-[var(--bg-card)] p-6">
+              <div className="h-full rounded-2xl border border-white/8 bg-[var(--bg-card)] p-6 shadow-lg shadow-black/10">
                 <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-[var(--accent-blue)]">
                   {group.title}
                 </h3>
