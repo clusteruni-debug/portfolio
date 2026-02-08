@@ -43,5 +43,6 @@ portfolio/
 
 ## 현재 세션 상태
 
-**마지막 작업**: 초기 구현 완료 (전체 5개 섹션)
-**다음 작업**: 없음
+**마지막 작업**: 레이아웃 버그 수정 + 이름 변경 + GitHub Pages 배포 완료
+**배포 URL**: https://clusteruni-debug.github.io/portfolio/
+**다음 작업**: 스크린샷 교체, OG 메타 태그, Hero 줄바꿈 개선
