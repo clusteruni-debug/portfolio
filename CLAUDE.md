@@ -45,4 +45,10 @@ portfolio/
 
 **마지막 작업**: 레이아웃 버그 수정 + 이름 변경 + GitHub Pages 배포 완료
 **배포 URL**: https://clusteruni-debug.github.io/portfolio/
-**다음 작업**: 스크린샷 교체, OG 메타 태그, Hero 줄바꿈 개선
+
+### 다음 세션 TODO
+1. **Hero 타이틀 줄바꿈 개선** — "안녕하세요, 람쥐썬더입니다"가 "입니다"에서 줄바꿈됨. `whitespace-nowrap` 또는 폰트 크기 조정 필요
+2. **프로젝트 스크린샷 교체** — `public/screenshots/`에 실제 캡처 넣고 ProjectCard의 placeholder 그라디언트를 `<img>`로 교체
+3. **OG 메타 태그** — `index.html`에 og:title, og:description, og:image 추가 (링크 공유 시 미리보기)
+4. **모바일 반응형 점검** — 375px에서 Hero 텍스트 크기, 카드 여백, 헤더 네비 확인
+5. **프로젝트 카드에 GitHub 링크 추가** — `data/projects.ts`에 githubUrl 채우고 카드에 아이콘 표시
