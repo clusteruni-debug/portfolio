@@ -41,6 +41,15 @@ portfolio/
 └── .github/workflows/deploy.yml
 ```
 
+## 🔒 세션 잠금
+
+이 프로젝트는 세션 잠금 시스템 적용 대상입니다.
+- 작업 시작: `/session-start` → `.claude-lock` 생성 → 다른 세션 수정 차단
+- 작업 종료: `/session-end` → `.claude-lock` 삭제
+- **다른 세션에서 이 프로젝트를 수정하려 하면 PreToolUse hook이 자동 차단합니다**
+
+---
+
 ## 현재 세션 상태
 
 **마지막 작업**: 레이아웃 버그 수정 + 이름 변경 + GitHub Pages 배포 완료
