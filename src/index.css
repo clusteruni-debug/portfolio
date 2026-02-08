@@ -17,13 +17,6 @@
   --glow-purple: rgba(139, 92, 246, 0.3);
 }
 
-/* 기본 스타일 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
 }
