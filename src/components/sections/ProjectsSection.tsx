@@ -25,12 +25,12 @@ export default function ProjectsSection() {
 
         {/* 카테고리 필터 */}
         <ScrollReveal delay={0.1}>
-          <div className="mb-10 flex items-center justify-center gap-3">
+          <div className="mb-10 flex items-center justify-center gap-2 sm:gap-3">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 sm:px-5 ${
                   activeCategory === cat.id
                     ? 'bg-[var(--accent-blue)] text-white shadow-lg shadow-blue-500/25'
                     : 'border border-white/10 text-[var(--text-secondary)] hover:border-white/20 hover:text-[var(--text-primary)]'
@@ -45,7 +45,7 @@ export default function ProjectsSection() {
         {/* 프로젝트 그리드 */}
         <motion.div
           layout
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (

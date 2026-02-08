@@ -40,7 +40,7 @@ export default function HeroSection() {
           className="mb-6 text-5xl font-extrabold leading-tight tracking-tight md:text-7xl"
         >
           안녕하세요,{' '}
-          <span className="gradient-text">박준희</span>
+          <span className="gradient-text">람쥐썬더</span>
           입니다
         </motion.h1>
 

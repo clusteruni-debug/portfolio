@@ -29,12 +29,12 @@ export default function GlowCard({ children, className = '', glowColor = 'rgba(5
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className={`relative overflow-hidden rounded-2xl border border-white/5 bg-[var(--bg-card)] transition-all duration-300 hover:border-white/10 ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-white/8 bg-[var(--bg-card)] shadow-lg shadow-black/20 transition-all duration-300 hover:border-white/15 hover:shadow-xl hover:shadow-black/30 ${className}`}
     >
       {/* 글로우 오버레이 */}
       {isHovering && (
         <div
-          className="pointer-events-none absolute -inset-px rounded-2xl opacity-100 transition-opacity duration-300"
+          className="pointer-events-none absolute -inset-px rounded-2xl transition-opacity duration-300"
           style={{
             background: `radial-gradient(400px circle at ${glowPosition.x}px ${glowPosition.y}px, ${glowColor}, transparent 60%)`,
           }}

@@ -47,7 +47,7 @@ const skillGroups: SkillGroup[] = [
 const container = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.06 },
+    transition: { staggerChildren: 0.08 },
   },
 }
 
@@ -59,7 +59,7 @@ const item = {
 export default function SkillsSection() {
   return (
     <section id="skills" className="bg-[var(--bg-secondary)] py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
             <span className="gradient-text">기술 스택</span>
@@ -69,33 +69,38 @@ export default function SkillsSection() {
           </p>
         </ScrollReveal>
 
-        <div className="space-y-12">
+        {/* 3열 그리드: 각 그룹이 카드 형태 */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {skillGroups.map((group, groupIdx) => (
             <ScrollReveal key={group.title} delay={groupIdx * 0.1}>
-              <h3 className="mb-6 text-center text-lg font-semibold text-[var(--text-secondary)]">
-                {group.title}
-              </h3>
-              <motion.div
-                variants={container}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="flex flex-wrap items-center justify-center gap-4"
-              >
-                {group.skills.map((skill) => (
-                  <motion.div
-                    key={skill.name}
-                    variants={item}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className="flex items-center gap-2.5 rounded-xl border border-white/5 bg-[var(--bg-card)] px-5 py-3 transition-colors hover:border-white/15"
-                  >
-                    <span className="text-lg">{skill.icon}</span>
-                    <span className="text-sm font-medium" style={{ color: skill.color }}>
-                      {skill.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </motion.div>
+              <div className="rounded-2xl border border-white/5 bg-[var(--bg-card)] p-6">
+                <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-[var(--accent-blue)]">
+                  {group.title}
+                </h3>
+                <motion.div
+                  variants={container}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="flex flex-col gap-3"
+                >
+                  {group.skills.map((skill) => (
+                    <motion.div
+                      key={skill.name}
+                      variants={item}
+                      whileHover={{ x: 4 }}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5"
+                    >
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-base">
+                        {skill.icon}
+                      </span>
+                      <span className="text-sm font-medium" style={{ color: skill.color }}>
+                        {skill.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
             </ScrollReveal>
           ))}
         </div>

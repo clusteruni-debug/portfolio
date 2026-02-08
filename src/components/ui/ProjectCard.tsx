@@ -14,24 +14,25 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       layout
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="h-full"
     >
-      <GlowCard glowColor={`${project.color}25`}>
-        <div className="p-6">
+      <GlowCard glowColor={`${project.color}30`} className="flex h-full flex-col">
+        <div className="flex h-full flex-col p-5">
           {/* 플레이스홀더 스크린샷 */}
           <div
-            className={`mb-5 flex h-40 items-center justify-center rounded-xl bg-gradient-to-br ${project.gradient} opacity-80`}
+            className={`mb-4 flex h-36 items-center justify-center rounded-xl bg-gradient-to-br ${project.gradient}`}
           >
-            <span className="text-lg font-bold text-white/90 drop-shadow-lg">
+            <span className="text-base font-bold text-white drop-shadow-lg">
               {project.title}
             </span>
           </div>
 
-          {/* 상태 뱃지 */}
-          <div className="mb-3 flex items-center gap-2">
+          {/* 상태 + 제목 */}
+          <div className="mb-1 flex items-center gap-2">
             <span
-              className={`inline-block h-2 w-2 rounded-full ${
+              className={`inline-block h-2 w-2 shrink-0 rounded-full ${
                 project.status === 'active'
                   ? 'bg-green-400'
                   : project.status === 'in-progress'
@@ -39,21 +40,18 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   : 'bg-gray-400'
               }`}
             />
-            <span className="text-xs text-[var(--text-secondary)]">
-              {project.status === 'active' ? '운영중' : project.status === 'in-progress' ? '개발중' : '완료'}
-            </span>
+            <h3 className="truncate text-base font-semibold text-[var(--text-primary)]">
+              {project.title}
+            </h3>
           </div>
 
-          {/* 제목 + 설명 */}
-          <h3 className="mb-2 text-lg font-semibold text-[var(--text-primary)]">
-            {project.title}
-          </h3>
-          <p className="mb-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+          {/* 설명 */}
+          <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-[var(--text-secondary)]">
             {project.description}
           </p>
 
-          {/* 기술 배지 */}
-          <div className="mb-4 flex flex-wrap gap-2">
+          {/* 기술 배지 — 하단 고정 */}
+          <div className="mt-auto flex flex-wrap gap-1.5">
             {project.tech.map((t) => (
               <TechBadge key={t} name={t} />
             ))}
@@ -65,7 +63,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-blue)] transition-colors hover:text-[var(--accent-cyan)]"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-blue)] transition-colors hover:text-[var(--accent-cyan)]"
             >
               라이브 보기
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
