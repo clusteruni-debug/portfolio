@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-02-11
+
+### 완료
+- OG 메타태그 추가 (og:title, og:description, og:image, og:url, og:type, twitter:card)
+- 6개 프로젝트에 githubUrl 데이터 추가
+- ProjectCard에 GitHub 아이콘 링크 추가 (liveUrl과 나란히 표시)
+
+### 다음
+- 프로젝트 스크린샷 교체 (placeholder → 실제)
+- Hero 타이틀 줄바꿈 개선
+
 ## 2026-02-08
 
 ### 완료

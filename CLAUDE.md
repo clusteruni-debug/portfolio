@@ -41,32 +41,18 @@ portfolio/
 └── .github/workflows/deploy.yml
 ```
 
-## 🔌 MCP 서버 & 도구
+## 🔌 MCP 서버 & 🔒 세션 잠금
 
-- **context7**: 라이브러리 최신 문서 자동 주입 (`resolve-library-id` → `get-library-docs`)
-- **claude-mem**: 세션 히스토리 압축 + 컨텍스트 유실 방지
-- **ccusage**: `npx ccusage@latest daily` — 토큰 비용 확인
-- **github MCP**: GitHub 이슈/PR/Actions 관리
-
----
-
-## 🔒 세션 잠금
-
-이 프로젝트는 세션 잠금 시스템 적용 대상입니다.
-- 작업 시작: `/session-start` → `.claude-lock` 생성 → 다른 세션 수정 차단
-- 작업 종료: `/session-end` → `.claude-lock` 삭제
-- **다른 세션에서 이 프로젝트를 수정하려 하면 PreToolUse hook이 자동 차단합니다**
+> [워크스페이스 CLAUDE.md](../CLAUDE.md) 참고 (글로벌 설정)
 
 ---
 
 ## 현재 세션 상태
 
-**마지막 작업**: 레이아웃 버그 수정 + 이름 변경 + GitHub Pages 배포 완료
+**마지막 작업**: OG 메타태그 + GitHub 링크 추가
 **배포 URL**: https://clusteruni-debug.github.io/portfolio/
 
 ### 다음 세션 TODO
 1. **Hero 타이틀 줄바꿈 개선** — "안녕하세요, 람쥐썬더입니다"가 "입니다"에서 줄바꿈됨. `whitespace-nowrap` 또는 폰트 크기 조정 필요
 2. **프로젝트 스크린샷 교체** — `public/screenshots/`에 실제 캡처 넣고 ProjectCard의 placeholder 그라디언트를 `<img>`로 교체
-3. **OG 메타 태그** — `index.html`에 og:title, og:description, og:image 추가 (링크 공유 시 미리보기)
-4. **모바일 반응형 점검** — 375px에서 Hero 텍스트 크기, 카드 여백, 헤더 네비 확인
-5. **프로젝트 카드에 GitHub 링크 추가** — `data/projects.ts`에 githubUrl 채우고 카드에 아이콘 표시
+3. **모바일 반응형 점검** — 375px에서 Hero 텍스트 크기, 카드 여백, 헤더 네비 확인

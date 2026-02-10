@@ -22,6 +22,7 @@ export const projects: Project[] = [
     category: 'web',
     color: '#3b82f6',
     gradient: 'from-blue-500 to-cyan-500',
+    githubUrl: 'https://github.com/clusteruni-debug/article-editor',
     status: 'active',
   },
   {
@@ -33,6 +34,7 @@ export const projects: Project[] = [
     category: 'web',
     color: '#10b981',
     gradient: 'from-emerald-500 to-green-500',
+    githubUrl: 'https://github.com/clusteruni-debug/web3-budget-app',
     status: 'active',
   },
   {
@@ -45,6 +47,7 @@ export const projects: Project[] = [
     color: '#f97316',
     gradient: 'from-orange-500 to-amber-500',
     liveUrl: 'https://junhee-park.github.io/todolist/',
+    githubUrl: 'https://github.com/clusteruni-debug/To-do-list-for-adhd',
     status: 'active',
   },
   {
@@ -56,6 +59,7 @@ export const projects: Project[] = [
     category: 'web',
     color: '#ec4899',
     gradient: 'from-pink-500 to-rose-500',
+    githubUrl: 'https://github.com/clusteruni-debug/baby-care',
     status: 'active',
   },
   {
@@ -67,6 +71,7 @@ export const projects: Project[] = [
     category: 'tool',
     color: '#8b5cf6',
     gradient: 'from-violet-500 to-purple-500',
+    githubUrl: 'https://github.com/clusteruni-debug/Kimpbotforme',
     status: 'active',
   },
   {
@@ -78,6 +83,7 @@ export const projects: Project[] = [
     category: 'bot',
     color: '#06b6d4',
     gradient: 'from-cyan-500 to-teal-500',
+    githubUrl: 'https://github.com/clusteruni-debug/telegram-event-bot',
     status: 'in-progress',
   },
 ]
