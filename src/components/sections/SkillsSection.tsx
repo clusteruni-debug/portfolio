@@ -22,13 +22,17 @@ const skillGroups: SkillGroup[] = [
       { name: 'Tailwind CSS', icon: '🎨', color: '#06b6d4' },
       { name: 'Vite', icon: '⚡', color: '#646cff' },
       { name: 'Framer Motion', icon: '🎬', color: '#ff0055' },
+      { name: 'zustand', icon: '🐻', color: '#453f39' },
     ],
   },
   {
     title: 'Backend & DB',
     skills: [
+      { name: 'Node.js', icon: '🟢', color: '#339933' },
+      { name: 'Express', icon: '🚂', color: '#ffffff' },
       { name: 'Supabase', icon: '⚡', color: '#3ecf8e' },
       { name: 'Firebase', icon: '🔥', color: '#ffca28' },
+      { name: 'SQLite', icon: '🗄️', color: '#003b57' },
       { name: 'Python', icon: '🐍', color: '#3776ab' },
       { name: 'Flask', icon: '🌶️', color: '#ffffff' },
     ],
@@ -40,6 +44,7 @@ const skillGroups: SkillGroup[] = [
       { name: 'GitHub Actions', icon: '🔄', color: '#2088ff' },
       { name: 'Vercel', icon: '▲', color: '#ffffff' },
       { name: 'Claude Code', icon: '🤖', color: '#d4a574' },
+      { name: 'pm2', icon: '🔄', color: '#2b037a' },
     ],
   },
 ]

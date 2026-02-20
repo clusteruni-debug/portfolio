@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-02-20
+
+### 완료
+- 프로젝트 5개 추가: Make Money, OpenClaw, Mission Control, Saitama Training, Text RPG (총 11개)
+- 기존 프로젝트 업데이트: Baby Care 설명 갱신, Kimchi Premium 기술스택+설명 갱신, Telegram Bot 상태 active로 변경
+- Hero 섹션: 프로젝트 수 6→11, 기술스택 5→10, 서브타이틀 변경
+- Skills 섹션: Node.js, Express, SQLite, zustand, pm2 추가
+
 ## 2026-02-11
 
 ### 완료

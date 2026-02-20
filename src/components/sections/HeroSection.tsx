@@ -3,8 +3,8 @@ import AnimatedCounter from '../ui/AnimatedCounter'
 import ParticleBackground from '../effects/ParticleBackground'
 
 const stats = [
-  { end: 6, suffix: '+', label: '프로젝트' },
-  { end: 5, suffix: '+', label: '기술 스택' },
+  { end: 11, suffix: '+', label: '프로젝트' },
+  { end: 10, suffix: '+', label: '기술 스택' },
   { end: 100, suffix: '%', label: '바이브코딩' },
 ]
 
@@ -53,7 +53,7 @@ export default function HeroSection() {
         >
           AI와 함께 코딩하며 아이디어를 현실로 만듭니다.
           <br />
-          Web3, 육아, 생산성 도구까지 — 다양한 문제를 기술로 해결합니다.
+          AI 트레이딩, 육아, 생산성 도구까지 — 다양한 문제를 기술로 해결합니다.
         </motion.p>
 
         {/* 통계 카운터 */}
