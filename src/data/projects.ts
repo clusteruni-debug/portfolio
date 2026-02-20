@@ -89,7 +89,7 @@ export const projects: Project[] = [
   {
     id: 'make-money',
     title: 'Make Money (AI 자동매매)',
-    description: 'Polymarket AI 예측시장 자동매매 봇 + 실시간 대시보드',
+    description: '자동매매 봇 + 실시간 대시보드',
     longDescription: '8개 트레이딩 엔진이 Claude AI로 시장을 분석하고 자동으로 거래합니다. 실시간 대시보드로 포지션/P&L/엔진 상태를 모니터링.',
     tech: ['Node.js', 'Express', 'React', 'SQLite', 'Claude AI'],
     category: 'bot',
@@ -114,7 +114,7 @@ export const projects: Project[] = [
     id: 'mission-control',
     title: 'Mission Control',
     description: '워크스페이스 전체 프로젝트 관제 대시보드',
-    longDescription: '모든 프로젝트의 상태를 한눈에. Make Money P&L, 봇 헬스체크, GitHub 커밋 타임라인, 생산성 통계를 통합 모니터링.',
+    longDescription: '모든 프로젝트의 상태를 한눈에. 봇 헬스체크, GitHub 커밋 타임라인, 생산성 통계를 통합 모니터링.',
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
     category: 'web',
     color: '#6366f1',
