@@ -3,6 +3,16 @@
 ## 2026-02-20
 
 ### 완료
+- 포트폴리오 전면 리디자인: 다크 글로우 톤 → 라이트 미니멀 톤으로 전환
+- 기술 스택 섹션 제거 후 `하고 싶은 말` 메시지 섹션으로 대체 (`#message`)
+- Hero/Projects/ProjectCard/Contact/Footer 전부 레이아웃·타이포·컬러 시스템 재정비
+- Header 네비게이션 업데이트: `기술 스택` → `하고 싶은 말`
+- 레퍼런스 방향: Stripe, Vercel, Framer 포트폴리오 템플릿의 클린 레이아웃 톤 참고
+- 빌드 검증: `npm run build` 통과
+
+## 2026-02-20
+
+### 완료
 - 프로젝트 5개 추가: Make Money, OpenClaw, Mission Control, Saitama Training, Text RPG (총 11개)
 - 기존 프로젝트 업데이트: Baby Care 설명 갱신, Kimchi Premium 기술스택+설명 갱신, Telegram Bot 상태 active로 변경
 - Hero 섹션: 프로젝트 수 6→11, 기술스택 5→10, 서브타이틀 변경

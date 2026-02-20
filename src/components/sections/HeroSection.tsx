@@ -1,92 +1,85 @@
 import { motion } from 'framer-motion'
 import AnimatedCounter from '../ui/AnimatedCounter'
-import ParticleBackground from '../effects/ParticleBackground'
 
 const stats = [
-  { end: 11, suffix: '+', label: '프로젝트' },
-  { end: 10, suffix: '+', label: '기술 스택' },
-  { end: 100, suffix: '%', label: '바이브코딩' },
+  { end: 11, suffix: '+', label: '완료 프로젝트' },
+  { end: 5, suffix: '개', label: '문제 영역' },
+  { end: 100, suffix: '%', label: '실사용 기준 개선' },
 ]
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* 그라디언트 오브 배경 */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-purple-500/10 blur-[120px]" />
-        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-[100px]" />
-      </div>
+    <section className="relative px-6 pb-22 pt-34 md:pb-28 md:pt-40">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-5 inline-flex rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-600"
+          >
+            PRODUCT DESIGN + BUILD
+          </motion.p>
 
-      <ParticleBackground />
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="display-font mb-6 text-4xl leading-tight text-slate-900 md:text-6xl"
+          >
+            아이디어를
+            <span className="gradient-text"> 실제로 쓰이는 제품</span>
+            으로 만듭니다.
+          </motion.h1>
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        {/* 소개 뱃지 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-[var(--text-secondary)]"
-        >
-          <span className="inline-block h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-          바이브코딩으로 만드는 프로젝트
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.16 }}
+            className="max-w-2xl text-base leading-8 text-[var(--text-secondary)] md:text-lg"
+          >
+            AI 트레이딩, 육아, 생산성 도구까지. 빠르게 만들고 실제 사용 피드백으로 개선하며,
+            보기 좋은 코드보다 오래 남는 경험을 우선합니다.
+          </motion.p>
 
-        {/* 메인 타이틀 */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mb-6 text-5xl font-extrabold leading-tight tracking-tight md:text-7xl"
-        >
-          안녕하세요,{' '}
-          <span className="gradient-text">람쥐썬더</span>
-          입니다
-        </motion.h1>
-
-        {/* 서브 타이틀 */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-[var(--text-secondary)] md:text-xl"
-        >
-          AI와 함께 코딩하며 아이디어를 현실로 만듭니다.
-          <br />
-          AI 트레이딩, 육아, 생산성 도구까지 — 다양한 문제를 기술로 해결합니다.
-        </motion.p>
-
-        {/* 통계 카운터 */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="flex items-center justify-center gap-12 md:gap-20"
-        >
-          {stats.map((stat) => (
-            <AnimatedCounter key={stat.label} {...stat} />
-          ))}
-        </motion.div>
-
-        {/* 스크롤 화살표 */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-16"
-        >
-          <a href="#projects" className="inline-block">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-              className="text-[var(--text-secondary)]"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.24 }}
+            className="mt-10 flex flex-wrap gap-3"
+          >
+            <a
+              href="#projects"
+              className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-slate-800"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="mx-auto">
-                <path d="M12 4V20M12 20L6 14M12 20L18 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </motion.div>
-          </a>
-        </motion.div>
+              프로젝트 보기
+            </a>
+            <a
+              href="#message"
+              className="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900"
+            >
+              내가 중요하게 보는 것
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.aside
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="rounded-3xl border border-slate-200 bg-white p-7 shadow-[var(--shadow-soft)]"
+        >
+          <p className="mb-7 text-sm font-medium leading-7 text-slate-600">
+            “기술은 목적이 아니라 도구라고 믿습니다. 복잡한 것을 단순하게 만들고,
+            한번의 데모가 아니라 반복 사용에서 가치가 드러나는 제품을 만듭니다.”
+          </p>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            {stats.map((stat) => (
+              <AnimatedCounter key={stat.label} {...stat} />
+            ))}
+          </div>
+        </motion.aside>
       </div>
     </section>
   )

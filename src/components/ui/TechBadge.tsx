@@ -2,30 +2,33 @@ interface TechBadgeProps {
   name: string
 }
 
-// 기술별 색상 매핑
 const techColors: Record<string, string> = {
-  'Next.js': 'border-white/20 text-white',
-  'TypeScript': 'border-blue-400/30 text-blue-400',
-  'Supabase': 'border-emerald-400/30 text-emerald-400',
-  'TipTap': 'border-purple-400/30 text-purple-400',
-  'Vite': 'border-yellow-400/30 text-yellow-400',
-  'JavaScript': 'border-yellow-400/30 text-yellow-400',
-  'Chart.js': 'border-pink-400/30 text-pink-400',
-  'HTML': 'border-orange-400/30 text-orange-400',
-  'Firebase': 'border-amber-400/30 text-amber-400',
-  'PWA': 'border-blue-300/30 text-blue-300',
-  'React': 'border-cyan-400/30 text-cyan-400',
-  'WebSocket': 'border-green-400/30 text-green-400',
-  'Python': 'border-blue-400/30 text-blue-400',
-  'Flask': 'border-gray-400/30 text-gray-400',
-  'Telegram API': 'border-sky-400/30 text-sky-400',
+  'Next.js': 'border-slate-300 bg-slate-100 text-slate-700',
+  'TypeScript': 'border-blue-200 bg-blue-50 text-blue-700',
+  'Supabase': 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  'TipTap': 'border-violet-200 bg-violet-50 text-violet-700',
+  'Vite': 'border-amber-200 bg-amber-50 text-amber-700',
+  'JavaScript': 'border-amber-200 bg-amber-50 text-amber-700',
+  'Chart.js': 'border-pink-200 bg-pink-50 text-pink-700',
+  'HTML': 'border-orange-200 bg-orange-50 text-orange-700',
+  'Firebase': 'border-yellow-200 bg-yellow-50 text-yellow-700',
+  'PWA': 'border-sky-200 bg-sky-50 text-sky-700',
+  'React': 'border-cyan-200 bg-cyan-50 text-cyan-700',
+  'WebSocket': 'border-teal-200 bg-teal-50 text-teal-700',
+  'Python': 'border-blue-200 bg-blue-50 text-blue-700',
+  'Flask': 'border-slate-300 bg-slate-100 text-slate-700',
+  'Telegram API': 'border-sky-200 bg-sky-50 text-sky-700',
+  'Node.js': 'border-lime-200 bg-lime-50 text-lime-700',
+  Express: 'border-zinc-300 bg-zinc-100 text-zinc-800',
+  SQLite: 'border-indigo-200 bg-indigo-50 text-indigo-700',
+  'Claude AI': 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700',
 }
 
 export default function TechBadge({ name }: TechBadgeProps) {
-  const colors = techColors[name] || 'border-white/20 text-[var(--text-secondary)]'
+  const colors = techColors[name] || 'border-slate-300 bg-slate-100 text-slate-600'
 
   return (
-    <span className={`inline-block rounded-full border px-3 py-1 text-xs font-medium ${colors}`}>
+    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-semibold ${colors}`}>
       {name}
     </span>
   )

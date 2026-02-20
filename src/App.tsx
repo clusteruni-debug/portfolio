@@ -4,14 +4,12 @@ import HeroSection from './components/sections/HeroSection'
 import ProjectsSection from './components/sections/ProjectsSection'
 import SkillsSection from './components/sections/SkillsSection'
 import ContactSection from './components/sections/ContactSection'
-import MouseGlow from './components/effects/MouseGlow'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
-      <MouseGlow />
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <Header />
-      <main>
+      <main className="relative">
         <HeroSection />
         <ProjectsSection />
         <SkillsSection />

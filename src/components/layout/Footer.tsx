@@ -4,15 +4,15 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-white/5 bg-[var(--bg-secondary)]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-8">
-        <p className="text-sm text-[var(--text-secondary)]">
-          Made with <span className="gradient-text font-semibold">바이브코딩</span> & Claude Code
+    <footer className="border-t border-slate-200 bg-white/80">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8">
+        <p className="text-sm text-slate-500">
+          Designed & built by <span className="font-semibold text-slate-700">람쥐썬더</span>
         </p>
 
         <button
           onClick={scrollToTop}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-[var(--text-secondary)] transition-all hover:border-[var(--accent-blue)] hover:text-[var(--accent-blue)] hover:shadow-[0_0_12px_var(--glow-blue)]"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition-all hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900"
           aria-label="맨 위로"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

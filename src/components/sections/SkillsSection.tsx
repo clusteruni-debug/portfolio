@@ -1,111 +1,46 @@
 import { motion } from 'framer-motion'
 import ScrollReveal from '../effects/ScrollReveal'
 
-interface Skill {
-  name: string
-  icon: string
-  color: string
-}
+const messageTitle = '기능보다 경험을 먼저 설계합니다.'
 
-interface SkillGroup {
-  title: string
-  skills: Skill[]
-}
-
-const skillGroups: SkillGroup[] = [
+const messageBlocks = [
   {
-    title: 'Frontend',
-    skills: [
-      { name: 'React', icon: '⚛️', color: '#61dafb' },
-      { name: 'Next.js', icon: '▲', color: '#ffffff' },
-      { name: 'TypeScript', icon: 'TS', color: '#3178c6' },
-      { name: 'Tailwind CSS', icon: '🎨', color: '#06b6d4' },
-      { name: 'Vite', icon: '⚡', color: '#646cff' },
-      { name: 'Framer Motion', icon: '🎬', color: '#ff0055' },
-      { name: 'zustand', icon: '🐻', color: '#453f39' },
-    ],
+    title: '문제 정의',
+    body: '불편한 지점을 정확히 잡아내고, 해결할 가치가 있는 문제부터 우선순위를 세웁니다.',
   },
   {
-    title: 'Backend & DB',
-    skills: [
-      { name: 'Node.js', icon: '🟢', color: '#339933' },
-      { name: 'Express', icon: '🚂', color: '#ffffff' },
-      { name: 'Supabase', icon: '⚡', color: '#3ecf8e' },
-      { name: 'Firebase', icon: '🔥', color: '#ffca28' },
-      { name: 'SQLite', icon: '🗄️', color: '#003b57' },
-      { name: 'Python', icon: '🐍', color: '#3776ab' },
-      { name: 'Flask', icon: '🌶️', color: '#ffffff' },
-    ],
+    title: '빠른 검증',
+    body: '작은 단위로 구현하고 바로 사용해보며, 데이터와 피드백으로 다음 수정을 결정합니다.',
   },
   {
-    title: 'Tools & DevOps',
-    skills: [
-      { name: 'Git', icon: '📦', color: '#f05032' },
-      { name: 'GitHub Actions', icon: '🔄', color: '#2088ff' },
-      { name: 'Vercel', icon: '▲', color: '#ffffff' },
-      { name: 'Claude Code', icon: '🤖', color: '#d4a574' },
-      { name: 'pm2', icon: '🔄', color: '#2b037a' },
-    ],
+    title: '지속 운영',
+    body: '한 번 배포로 끝내지 않고, 실제 사용 맥락에서 오래 버티는 제품으로 다듬습니다.',
   },
 ]
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.08 },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20, scale: 0.9 },
-  show: { opacity: 1, y: 0, scale: 1 },
-}
-
 export default function SkillsSection() {
   return (
-    <section id="skills" className="bg-[var(--bg-secondary)] py-24 md:py-32">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="message" className="px-6 py-24 md:py-28">
+      <div className="mx-auto w-full max-w-6xl rounded-[32px] border border-slate-200 bg-white p-8 shadow-[var(--shadow-soft)] md:p-12">
         <ScrollReveal>
-          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
-            <span className="gradient-text">기술 스택</span>
-          </h2>
-          <p className="mx-auto mb-16 max-w-xl text-center text-[var(--text-secondary)]">
-            프로젝트에 사용하는 기술들
+          <p className="mb-2 text-xs font-semibold tracking-[0.16em] text-slate-500">MESSAGE</p>
+          <h2 className="display-font mb-5 text-3xl text-slate-900 md:text-5xl">{messageTitle}</h2>
+          <p className="max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
+            기술 스택 자체보다, 무엇을 해결하려는지와 어떤 기준으로 개선하는지를 더 중요하게 봅니다.
+            아래 문장은 현재 작업 방식을 가장 잘 설명하는 기준입니다.
           </p>
         </ScrollReveal>
 
-        {/* 3열 그리드: 각 그룹이 카드 형태 */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
-          {skillGroups.map((group, groupIdx) => (
-            <ScrollReveal key={group.title} delay={groupIdx * 0.1}>
-              <div className="h-full rounded-2xl border border-white/8 bg-[var(--bg-card)] p-6 shadow-lg shadow-black/10">
-                <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-[var(--accent-blue)]">
-                  {group.title}
-                </h3>
-                <motion.div
-                  variants={container}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  className="flex flex-col gap-3"
-                >
-                  {group.skills.map((skill) => (
-                    <motion.div
-                      key={skill.name}
-                      variants={item}
-                      whileHover={{ x: 4 }}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5"
-                    >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-base">
-                        {skill.icon}
-                      </span>
-                      <span className="text-sm font-medium" style={{ color: skill.color }}>
-                        {skill.name}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {messageBlocks.map((block, idx) => (
+            <ScrollReveal key={block.title} delay={idx * 0.08}>
+              <motion.article
+                whileHover={{ y: -4 }}
+                className="h-full rounded-2xl border border-slate-200 bg-slate-50 p-5"
+              >
+                <h3 className="mb-2 text-base font-bold text-slate-900">{block.title}</h3>
+                <p className="text-sm leading-7 text-slate-600">{block.body}</p>
+              </motion.article>
             </ScrollReveal>
           ))}
         </div>
