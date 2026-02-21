@@ -135,6 +135,18 @@ export const projects: Project[] = [
     status: 'active',
   },
   {
+    id: 'tradinglab',
+    title: 'TradingLab (크립토 연구실)',
+    description: '크립토 백테스팅/연구 도구 — 전략 검증 + 대시보드',
+    longDescription: 'Python 기반 크립토 백테스팅 프레임워크. SMA/RSI/Donchian 전략, walk-forward 검증, lookahead guard, ccxt 데이터 수집, Jinja2 대시보드 관제.',
+    tech: ['Python', 'pandas', 'ccxt', 'matplotlib'],
+    category: 'tool',
+    color: '#eab308',
+    gradient: 'from-yellow-500 to-amber-500',
+    githubUrl: 'https://github.com/clusteruni-debug/coin-test-project',
+    status: 'in-progress',
+  },
+  {
     id: 'text-rpg',
     title: 'Text RPG Engine',
     description: 'JSON 기반 웹 텍스트 RPG 엔진',
