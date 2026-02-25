@@ -147,6 +147,18 @@ export const projects: Project[] = [
     status: 'in-progress',
   },
   {
+    id: 'ai-hub',
+    title: 'AI Hub',
+    description: 'Claude, ChatGPT, Gemini를 탭으로 전환하며 쓰는 데스크톱 앱',
+    longDescription: 'Electron 기반 멀티 AI 서비스 허브. 세션 격리로 서비스별 독립 로그인, Ctrl+Shift+D 한 키로 대화 저장, Supabase 대시보드로 대화 메타데이터 관리.',
+    tech: ['Electron', 'Vanilla JS', 'Supabase'],
+    category: 'tool',
+    color: '#6366f1',
+    gradient: 'from-indigo-500 to-violet-500',
+    githubUrl: 'https://github.com/clusteruni-debug/ai-hub',
+    status: 'in-progress',
+  },
+  {
     id: 'text-rpg',
     title: 'Text RPG Engine',
     description: 'JSON 기반 웹 텍스트 RPG 엔진',
