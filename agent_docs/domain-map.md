@@ -1,8 +1,8 @@
-# Portfolio — CC/CX 파일 담당
+# Portfolio — CC/CX File Ownership
 
-| 영역 | 파일/디렉토리 | 담당 | 근거 |
-|------|-------------|:----:|------|
-| 전체 | src/** | CX | 정적 사이트, 전부 UI 작업 |
-| 프로젝트 데이터 | src/data/projects.ts | CX | 정적 데이터 |
+| Domain | File/Directory | Owner | Rationale |
+|--------|---------------|:-----:|-----------|
+| All | src/** | CX | Static site, all UI work |
+| Project Data | src/data/projects.ts | CX | Static data |
 
-> 아키텍처 변경이 필요한 경우에만 CC 개입.
+> CC involvement only when architectural changes are needed.

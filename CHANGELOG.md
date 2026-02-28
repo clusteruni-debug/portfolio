@@ -2,56 +2,56 @@
 
 ## 2026-02-20
 
-### 완료
-- 포트폴리오 전면 리디자인: 다크 글로우 톤 → 라이트 미니멀 톤으로 전환
-- 기술 스택 섹션 제거 후 `하고 싶은 말` 메시지 섹션으로 대체 (`#message`)
-- Hero/Projects/ProjectCard/Contact/Footer 전부 레이아웃·타이포·컬러 시스템 재정비
-- Header 네비게이션 업데이트: `기술 스택` → `하고 싶은 말`
-- 레퍼런스 방향: Stripe, Vercel, Framer 포트폴리오 템플릿의 클린 레이아웃 톤 참고
-- 빌드 검증: `npm run build` 통과
+### Completed
+- Full portfolio redesign: Dark glow tone -> light minimal tone transition
+- Tech stack section removed and replaced with "Things I Want to Say" message section (`#message`)
+- Hero/Projects/ProjectCard/Contact/Footer — complete layout/typography/color system overhaul
+- Header navigation updated: "Tech Stack" -> "Things I Want to Say"
+- Design reference: Clean layout tone inspired by Stripe, Vercel, Framer portfolio templates
+- Build verification: `npm run build` passed
 
 ## 2026-02-20
 
-### 완료
-- 프로젝트 5개 추가: Make Money, OpenClaw, Mission Control, Saitama Training, Text RPG (총 11개)
-- 기존 프로젝트 업데이트: Baby Care 설명 갱신, Kimchi Premium 기술스택+설명 갱신, Telegram Bot 상태 active로 변경
-- Hero 섹션: 프로젝트 수 6→11, 기술스택 5→10, 서브타이틀 변경
-- Skills 섹션: Node.js, Express, SQLite, zustand, pm2 추가
+### Completed
+- Added 5 projects: Make Money, OpenClaw, Mission Control, Saitama Training, Text RPG (total 11)
+- Updated existing projects: Baby Care description refresh, Kimchi Premium tech stack+description refresh, Telegram Bot status changed to active
+- Hero section: project count 6->11, tech stack 5->10, subtitle changed
+- Skills section: added Node.js, Express, SQLite, zustand, pm2
 
 ## 2026-02-11
 
-### 완료
-- OG 메타태그 추가 (og:title, og:description, og:image, og:url, og:type, twitter:card)
-- 6개 프로젝트에 githubUrl 데이터 추가
-- ProjectCard에 GitHub 아이콘 링크 추가 (liveUrl과 나란히 표시)
+### Completed
+- Added OG meta tags (og:title, og:description, og:image, og:url, og:type, twitter:card)
+- Added githubUrl data for 6 projects
+- Added GitHub icon link to ProjectCard (displayed alongside liveUrl)
 
-### 다음
-- 프로젝트 스크린샷 교체 (placeholder → 실제)
-- Hero 타이틀 줄바꿈 개선
+### Next
+- Replace project screenshots (placeholder -> actual)
+- Improve Hero title line break
 
 ## 2026-02-08
 
-### 완료
-- 프로젝트 초기화 (Vite + React + TS + Tailwind v4 + Framer Motion)
-- Hero 섹션 (파티클 배경, 그라디언트 오브, 카운트업 애니메이션)
-- Projects 섹션 (6개 프로젝트 카드, 카테고리 필터, 글로우 효과)
-- Skills 섹션 (3열 카드 그리드, 순차 fade-in)
-- Contact 섹션 (GitHub + Email 링크)
-- Header (고정 네비게이션, 스크롤 글래스모피즘)
-- Footer (바이브코딩 크레딧, 맨위로 버튼)
-- 인터랙티브 효과 (파티클 배경, 마우스 글로우, 스크롤 리빌)
-- GitHub Pages 배포 (GitHub Actions, `clusteruni-debug/portfolio`)
-- 반응형 레이아웃 (모바일 1열 / 태블릿 2열 / 데스크톱 3열)
-- 이름 '람쥐썬더'로 변경 (헤더, Hero, 타이틀, 메타 태그)
-- CSS 레이아웃 버그 수정 (`* { margin:0 }` 리셋이 Tailwind 유틸리티 덮어쓰기)
-- 프로젝트 카드 shadow/테두리 가시성 개선
-- 기술 스택 가로 배지 → 3열 카드 리스트 레이아웃 변경
+### Completed
+- Project initialization (Vite + React + TS + Tailwind v4 + Framer Motion)
+- Hero section (particle background, gradient orb, count-up animation)
+- Projects section (6 project cards, category filter, glow effects)
+- Skills section (3-column card grid, sequential fade-in)
+- Contact section (GitHub + Email links)
+- Header (fixed navigation, scroll glassmorphism)
+- Footer (vibe-coding credits, back-to-top button)
+- Interactive effects (particle background, mouse glow, scroll reveal)
+- GitHub Pages deployment (GitHub Actions, `clusteruni-debug/portfolio`)
+- Responsive layout (mobile 1-col / tablet 2-col / desktop 3-col)
+- Name changed to username (header, Hero, title, meta tags)
+- CSS layout bug fix (`* { margin:0 }` reset overriding Tailwind utilities)
+- Project card shadow/border visibility improvement
+- Tech stack horizontal badges -> 3-column card list layout change
 
-### 배포
+### Deployment
 - URL: https://clusteruni-debug.github.io/portfolio/
-- 레포: https://github.com/clusteruni-debug/portfolio
+- Repo: https://github.com/clusteruni-debug/portfolio
 
-### 다음
-- 프로젝트 스크린샷 교체 (placeholder → 실제)
-- OG 메타 태그 추가
-- Hero 타이틀 줄바꿈 개선 ("입니다"가 다음 줄로 넘어감)
+### Next
+- Replace project screenshots (placeholder -> actual)
+- Add OG meta tags
+- Improve Hero title line break (word wrapping issue)
