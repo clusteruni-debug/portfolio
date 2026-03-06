@@ -9,7 +9,7 @@ export interface Project {
   gradient: string
   liveUrl?: string
   githubUrl?: string
-  status: 'active' | 'completed' | 'in-progress'
+  status: 'active' | 'completed' | 'in-progress' | 'stopped'
 }
 
 export const projects: Project[] = [
@@ -99,16 +99,16 @@ export const projects: Project[] = [
     status: 'active',
   },
   {
-    id: 'openclaw',
-    title: 'OpenClaw (코딩봇)',
-    description: '텔레그램으로 Claude Code를 원격 제어하는 자율 코딩봇',
-    longDescription: '텔레그램 메시지로 코딩 작업을 지시하면 Claude Code CLI가 자율 실행. 7종 에러 분류, 헬스 API, pm2 프로세스 관리.',
-    tech: ['Python', 'Telegram Bot API', 'Claude Code CLI'],
+    id: 'watchbot',
+    title: 'WatchBot (모니터링봇)',
+    description: '텔레그램으로 프로젝트 상태를 모니터링하는 통합 커맨더 봇',
+    longDescription: '텔레그램 메시지로 프로젝트 상태 확인, 트레이딩 현황, PM2 크래시 알림 등을 수신. 통합 커맨더로 재활성화 예정.',
+    tech: ['Python', 'Telegram Bot API', 'SQLite'],
     category: 'bot',
     color: '#a855f7',
     gradient: 'from-purple-500 to-fuchsia-500',
     githubUrl: 'https://github.com/clusteruni-debug/openclaw-bot',
-    status: 'active',
+    status: 'stopped',
   },
   {
     id: 'mission-control',
