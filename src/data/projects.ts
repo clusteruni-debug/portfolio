@@ -182,6 +182,18 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/clusteruni-debug/ramgtd-text-rpg',
     status: 'active',
   },
+  {
+    id: 'decision-atlas',
+    title: 'Decision Atlas',
+    description: '개인 의사결정 백테스트 + 판단 품질 분석 앱',
+    longDescription: '의사결정을 기록하고, 시간이 지난 뒤 결과를 리뷰하여 판단 품질을 분석하는 앱. 도메인별 분류, 신뢰도 캘리브레이션, AI 인사이트 생성.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+    category: 'web',
+    color: '#0ea5e9',
+    gradient: 'from-sky-500 to-blue-500',
+    githubUrl: 'https://github.com/clusteruni-debug/decision-atlas',
+    status: 'in-progress',
+  },
 ]
 
 export const categories = [
