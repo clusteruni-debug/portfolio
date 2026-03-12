@@ -5,12 +5,14 @@ import TechBadge from './TechBadge'
 interface ProjectCardProps {
   project: Project
   index: number
+  richDescription?: string
 }
 
 const statusLabel: Record<Project['status'], string> = {
   active: '운영 중',
   completed: '완료',
   'in-progress': '진행 중',
+  stopped: '중단',
 }
 
 const categoryLabel: Record<Project['category'], string> = {
@@ -19,7 +21,11 @@ const categoryLabel: Record<Project['category'], string> = {
   bot: 'BOT',
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index, richDescription }: ProjectCardProps) {
+  const displayDescription = richDescription
+    ? richDescription.slice(0, 200) + (richDescription.length > 200 ? '…' : '')
+    : project.longDescription
+
   return (
     <motion.article
       layout
@@ -44,7 +50,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         <p className="mb-4 text-sm leading-6 text-slate-600">{project.description}</p>
-        <p className="mb-5 line-clamp-3 text-sm leading-6 text-slate-500">{project.longDescription}</p>
+        <p className="mb-5 line-clamp-3 text-sm leading-6 text-slate-500">{displayDescription}</p>
 
         <div className="mt-auto flex flex-wrap gap-2">
           {project.tech.map((t) => (
