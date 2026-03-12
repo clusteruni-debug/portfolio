@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 
 /** 페이지 스크롤 진행도 (0~1) */

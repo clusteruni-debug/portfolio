@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from 'framer-motion'
-import AnimatedCounter from '../ui/AnimatedCounter'
+import AnimatedCounter from '@/components/ui/AnimatedCounter'
 
 const stats = [
   { end: 11, suffix: '+', label: '완료 프로젝트' },

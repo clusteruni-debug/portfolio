@@ -1,4 +1,6 @@
-import ScrollReveal from '../effects/ScrollReveal'
+'use client'
+
+import ScrollReveal from '@/components/effects/ScrollReveal'
 
 export default function ContactSection() {
   return (

@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import type { PortfolioArticle } from '../../hooks/usePortfolioArticles'
+import type { PortfolioArticle } from '@/lib/articles'
 
 interface BlogCardProps {
   article: PortfolioArticle
@@ -9,7 +11,7 @@ interface BlogCardProps {
 
 export default function BlogCard({ article, index }: BlogCardProps) {
   const excerpt = article.content_text
-    ? article.content_text.slice(0, 160) + (article.content_text.length > 160 ? '…' : '')
+    ? article.content_text.slice(0, 160) + (article.content_text.length > 160 ? '...' : '')
     : ''
 
   const date = article.published_at
@@ -29,7 +31,7 @@ export default function BlogCard({ article, index }: BlogCardProps) {
       transition={{ duration: 0.35, delay: index * 0.06 }}
       className="group"
     >
-      <Link to={`/blog/${article.id}`} className="block h-full">
+      <Link href={`/blog/${article.id}`} className="block h-full">
         <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-soft)]">
           {article.cover_image_url && (
             <div className="aspect-[16/9] overflow-hidden">

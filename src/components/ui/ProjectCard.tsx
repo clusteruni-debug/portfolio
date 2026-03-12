@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from 'framer-motion'
-import type { Project } from '../../data/projects'
+import type { Project } from '@/data/projects'
 import TechBadge from './TechBadge'
 
 interface ProjectCardProps {

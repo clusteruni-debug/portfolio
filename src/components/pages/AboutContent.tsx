@@ -1,9 +1,8 @@
-import { useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { usePortfolioArticles } from '../hooks/usePortfolioArticles'
-import { renderArticleHTML } from '../lib/tiptap'
-import ScrollReveal from '../components/effects/ScrollReveal'
+import ScrollReveal from '@/components/effects/ScrollReveal'
 
 const fallbackBlocks = [
   {
@@ -20,24 +19,12 @@ const fallbackBlocks = [
   },
 ]
 
-export default function AboutPage() {
-  useEffect(() => {
-    document.title = '소개 | 람쥐썬더'
-    window.scrollTo(0, 0)
-  }, [])
+interface AboutContentProps {
+  html: string | null
+  coverImageUrl: string | null
+}
 
-  const { articles, loading, error } = usePortfolioArticles({
-    tag: 'portfolio:about',
-    includeContent: true,
-  })
-
-  const article = articles[0] ?? null
-
-  const html = useMemo(() => {
-    if (!article?.content) return ''
-    return renderArticleHTML(article.content)
-  }, [article?.content])
-
+export default function AboutContent({ html, coverImageUrl }: AboutContentProps) {
   return (
     <section className="mx-auto max-w-3xl px-6 pb-24 pt-32">
       <motion.div
@@ -46,7 +33,7 @@ export default function AboutPage() {
         transition={{ duration: 0.4 }}
       >
         <Link
-          to="/"
+          href="/"
           className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-slate-600"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -58,38 +45,18 @@ export default function AboutPage() {
         <h1 className="mb-10 text-3xl font-bold text-slate-900">소개</h1>
       </motion.div>
 
-      {loading && (
-        <div className="animate-pulse space-y-4">
-          <div className="h-5 w-3/4 rounded bg-slate-100" />
-          <div className="h-4 w-full rounded bg-slate-100" />
-          <div className="h-4 w-5/6 rounded bg-slate-100" />
-          <div className="h-4 w-4/6 rounded bg-slate-100" />
-        </div>
-      )}
-
-      {/* CMS content from article editor */}
-      {!loading && article && (
+      {html ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          {article.cover_image_url && (
-            <img
-              src={article.cover_image_url}
-              alt={article.title}
-              className="mb-10 w-full rounded-2xl"
-            />
+          {coverImageUrl && (
+            <img src={coverImageUrl} alt="소개" className="mb-10 w-full rounded-2xl" />
           )}
-          <div
-            className="article-content"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+          <div className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
         </motion.div>
-      )}
-
-      {/* Fallback: expanded version of SkillsSection message */}
-      {!loading && !article && !error && (
+      ) : (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -104,7 +71,6 @@ export default function AboutPage() {
               직접 만들고, 직접 쓰면서, 진짜 의미 있는 것에 집중합니다.
             </p>
           </div>
-
           <div className="grid gap-4">
             {fallbackBlocks.map((block, idx) => (
               <ScrollReveal key={block.title} delay={idx * 0.08}>
@@ -116,10 +82,6 @@ export default function AboutPage() {
             ))}
           </div>
         </motion.div>
-      )}
-
-      {error && (
-        <p className="text-sm text-red-500">콘텐츠를 불러오지 못했습니다.</p>
       )}
     </section>
   )

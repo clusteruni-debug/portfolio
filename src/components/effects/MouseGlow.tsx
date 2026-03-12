@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 
 /** 커서를 따라다니는 글로우 효과 */

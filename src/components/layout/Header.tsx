@@ -1,5 +1,8 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 
 const navLinks = [
@@ -11,7 +14,7 @@ const navLinks = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24)
@@ -21,11 +24,12 @@ export default function Header() {
 
   // Handle hash scrolling when navigating to /#section from other pages
   useEffect(() => {
-    if (location.hash) {
-      const el = document.getElementById(location.hash.slice(1))
+    const hash = window.location.hash
+    if (hash) {
+      const el = document.getElementById(hash.slice(1))
       if (el) el.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [location])
+  }, [pathname])
 
   return (
     <motion.header
@@ -37,7 +41,7 @@ export default function Header() {
       }`}
     >
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="display-font text-2xl font-bold text-slate-900">
+        <Link href="/" className="display-font text-2xl font-bold text-slate-900">
           ramzy.thunder
         </Link>
 
@@ -46,7 +50,7 @@ export default function Header() {
             <li key={link.href}>
               {link.href.startsWith('/') && !link.href.includes('#') ? (
                 <Link
-                  to={link.href}
+                  href={link.href}
                   className="text-sm font-semibold text-slate-600 transition-colors hover:text-slate-900"
                 >
                   {link.label}

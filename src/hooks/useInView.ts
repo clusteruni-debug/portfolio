@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 
 /** 요소가 뷰포트에 보이는지 감지 */

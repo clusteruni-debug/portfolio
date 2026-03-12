@@ -1,61 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { projects, categories, type CategoryId } from '../../data/projects'
-import { supabase } from '../../lib/supabase'
-import ProjectCard from '../ui/ProjectCard'
-import ScrollReveal from '../effects/ScrollReveal'
+'use client'
 
-interface ProjectDescription {
-  projectId: string
-  contentText: string
+import { useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { projects, categories, type CategoryId } from '@/data/projects'
+import ProjectCard from '@/components/ui/ProjectCard'
+import ScrollReveal from '@/components/effects/ScrollReveal'
+
+interface ProjectsSectionProps {
+  projectDescriptions: Record<string, string>
 }
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ projectDescriptions }: ProjectsSectionProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('all')
-  const [richDescriptions, setRichDescriptions] = useState<Map<string, string>>(new Map())
-
-  // Batch fetch portfolio:project:* articles
-  useEffect(() => {
-    if (!supabase) return
-
-    let cancelled = false
-
-    async function fetchProjectDescriptions() {
-      try {
-        const { data, error } = await supabase!
-          .from('articles')
-          .select('tags, content_text')
-          .like('tags::text', '%portfolio:project:%')
-          .eq('status', 'published')
-          .is('deleted_at', null)
-          .returns<{ tags: string[]; content_text: string | null }[]>()
-
-        if (cancelled || error || !data) return
-
-        const descriptions: ProjectDescription[] = []
-        for (const row of data) {
-          if (!row.tags || !row.content_text) continue
-          for (const tag of row.tags) {
-            if (tag.startsWith('portfolio:project:')) {
-              descriptions.push({
-                projectId: tag.replace('portfolio:project:', ''),
-                contentText: row.content_text,
-              })
-            }
-          }
-        }
-
-        if (descriptions.length > 0) {
-          setRichDescriptions(new Map(descriptions.map((d) => [d.projectId, d.contentText])))
-        }
-      } catch {
-        // Supabase unreachable — fall back to hardcoded descriptions
-      }
-    }
-
-    fetchProjectDescriptions()
-    return () => { cancelled = true }
-  }, [])
 
   const filtered = useMemo(
     () => (activeCategory === 'all' ? projects : projects.filter((p) => p.category === activeCategory)),
@@ -105,7 +61,7 @@ export default function ProjectsSection() {
                 key={project.id}
                 project={project}
                 index={i}
-                richDescription={richDescriptions.get(project.id)}
+                richDescription={projectDescriptions[project.id]}
               />
             ))}
           </AnimatePresence>

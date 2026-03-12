@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from 'framer-motion'
-import ScrollReveal from '../effects/ScrollReveal'
+import ScrollReveal from '@/components/effects/ScrollReveal'
 
 const messageTitle = '기능보다 경험을 먼저 설계합니다.'
 

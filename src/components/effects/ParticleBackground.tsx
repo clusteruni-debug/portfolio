@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef } from 'react'
 
 /** 캔버스 기반 파티클 + 그라디언트 배경 */
