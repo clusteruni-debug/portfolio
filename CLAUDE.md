@@ -1,4 +1,6 @@
-# Portfolio — Portfolio Showcase Site
+# Portfolio — Story-Driven Personal Site
+
+> Identity: "만들고 쓰고 기록하는 사람" — observer/documenter, not tech showcase
 
 ## Stack
 Next.js 16 (App Router, Turbopack) + TypeScript + Tailwind CSS v4 + Framer Motion + Supabase + TipTap
@@ -24,54 +26,70 @@ Vercel (auto-deploy on push)
 | Tag | Purpose |
 |-----|---------|
 | `portfolio:about` | About page content (single article) |
-| `portfolio:blog` | Blog posts (list page) |
-| `portfolio:project:{id}` | Project rich description (matches projects.ts id) |
+| `portfolio:thought` | Thought pieces (list at /thoughts) |
+| `portfolio:blog` | Legacy blog posts (still rendered, redirected to /thoughts) |
+| `portfolio:story:{slug}` | Case studies (e.g., `portfolio:story:navigator`) |
+| `portfolio:featured` | Featured on home page |
 
 ## Routes (App Router)
 ```
-/             → Static (hero + projects + skills + contact)
-/about        → ISR 60s (CMS or fallback)
-/blog         → ISR 60s (blog list)
-/blog/[id]    → Dynamic SSR (individual post with generateMetadata for SEO)
-/not-found    → 404 page
+/                   → ISR 60s (intro + featured stories + latest thoughts + about teaser)
+/about              → ISR 60s (CMS or fallback)
+/stories            → ISR 60s (case study listing)
+/stories/[slug]     → Dynamic SSR (individual case study)
+/thoughts           → ISR 60s (thought listing, merges portfolio:thought + portfolio:blog)
+/thoughts/[id]      → Dynamic SSR (individual thought piece)
+/blog/*             → Redirect to /thoughts/* (SEO continuity)
 ```
 
+## Design System
+- **Tone**: Warm neutral (cream #faf8f5 bg, stone text, amber accent)
+- **Dark mode**: Class-based (.dark on html), localStorage + prefers-color-scheme
+- **Typography**: Inter (headings) + Noto Sans KR (body), 18px base, 1.8 line-height
+- **Serif**: Georgia / Noto Serif KR for blockquotes (var(--serif))
+- **No**: gradient-text, glass, glow, particle effects, tech badges
+
 ## SEO
-- Blog posts have per-page `generateMetadata()` (title, description, OG image)
+- All content pages have `generateMetadata()` (title, description, OG image)
 - Content rendered server-side as HTML (TipTap generateHTML on server)
 - ISR with 60s revalidation for fresh content
+- /blog/* redirects preserve SEO continuity
 
 ## Structure
 ```
 src/
 ├── app/
-│   ├── layout.tsx            # Root layout (Header + Footer + fonts)
-│   ├── page.tsx              # Home (server → fetches project descriptions)
-│   ├── about/page.tsx        # About (server → fetches CMS content)
-│   ├── blog/page.tsx         # Blog list (server → fetches articles)
-│   ├── blog/[id]/page.tsx    # Blog post (server → SSR with metadata)
-│   ├── not-found.tsx         # 404
-│   ├── error.tsx             # Error boundary
-│   └── globals.css
+│   ├── layout.tsx              # Root layout (dark mode script, Header + Footer)
+│   ├── page.tsx                # Home (server → featured stories + latest thoughts)
+│   ├── about/page.tsx          # About (server → CMS content)
+│   ├── stories/page.tsx        # Stories listing (server)
+│   ├── stories/[slug]/page.tsx # Story detail (server → SSR with metadata)
+│   ├── thoughts/page.tsx       # Thoughts listing (server)
+│   ├── thoughts/[id]/page.tsx  # Thought detail (server → SSR with metadata)
+│   ├── blog/[[...slug]]/page.tsx # Redirect → /thoughts/*
+│   ├── not-found.tsx           # 404
+│   ├── error.tsx               # Error boundary
+│   └── globals.css             # Color system (CSS vars, dark mode)
 ├── components/
-│   ├── layout/               # Header, Footer (client)
-│   ├── sections/             # Hero, Projects, Skills, Contact (client)
-│   ├── pages/                # HomePage, AboutContent (client wrappers)
-│   ├── ui/                   # ProjectCard, BlogCard, TechBadge, etc.
-│   └── effects/              # ScrollReveal, FadeIn, ParticleBackground, MouseGlow
-├── data/projects.ts          # 15 project data entries
+│   ├── layout/                 # Header (with ThemeToggle), Footer
+│   ├── sections/               # IntroSection, FeaturedStoriesSection,
+│   │                           # LatestThoughtsSection, AboutTeaserSection
+│   ├── pages/                  # HomePage, AboutContent
+│   ├── ui/                     # ThemeToggle, StoryCard, ThoughtCard
+│   └── effects/                # ScrollReveal, FadeIn
 ├── lib/
-│   ├── supabase.ts           # Server-side client
-│   ├── tiptap.ts             # Server-side HTML renderer
-│   └── articles.ts           # Server-side data fetching
-└── hooks/                    # useScrollProgress, useInView (client)
+│   ├── supabase.ts             # Server-side client
+│   ├── tiptap.ts               # Server-side HTML renderer
+│   └── articles.ts             # Data fetching (stories, thoughts, about)
+└── hooks/                      # useScrollProgress (client)
 ```
 
 ## Verification Checklist
 - [ ] `npm run build` with no errors
-- [ ] No duplicate project IDs
-- [ ] Category filter works (web/tool/bot)
-- [ ] Blog/About pages render without .env.local (graceful degradation)
+- [ ] Dark mode toggle works, no flash on reload
+- [ ] /blog/* redirects to /thoughts/*
+- [ ] Stories/Thoughts render from CMS
+- [ ] All pages degrade gracefully without .env.local
 
 ## References
 - CC/CX file ownership: agent_docs/domain-map.md

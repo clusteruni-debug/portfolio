@@ -1,21 +1,23 @@
 'use client'
 
-import HeroSection from '@/components/sections/HeroSection'
-import ProjectsSection from '@/components/sections/ProjectsSection'
-import SkillsSection from '@/components/sections/SkillsSection'
-import ContactSection from '@/components/sections/ContactSection'
+import IntroSection from '@/components/sections/IntroSection'
+import FeaturedStoriesSection from '@/components/sections/FeaturedStoriesSection'
+import LatestThoughtsSection from '@/components/sections/LatestThoughtsSection'
+import AboutTeaserSection from '@/components/sections/AboutTeaserSection'
+import type { PortfolioArticle } from '@/lib/articles'
 
 interface HomePageProps {
-  projectDescriptions: Record<string, string>
+  featuredStories: PortfolioArticle[]
+  latestThoughts: PortfolioArticle[]
 }
 
-export default function HomePage({ projectDescriptions }: HomePageProps) {
+export default function HomePage({ featuredStories, latestThoughts }: HomePageProps) {
   return (
     <>
-      <HeroSection />
-      <ProjectsSection projectDescriptions={projectDescriptions} />
-      <SkillsSection />
-      <ContactSection />
+      <IntroSection />
+      <FeaturedStoriesSection stories={featuredStories} />
+      <LatestThoughtsSection thoughts={latestThoughts} />
+      <AboutTeaserSection />
     </>
   )
 }

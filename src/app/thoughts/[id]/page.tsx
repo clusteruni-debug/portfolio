@@ -14,11 +14,11 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const article = await getArticleById(id)
-  if (!article || !article.tags.includes('portfolio:blog')) {
-    return { title: '글을 찾을 수 없습니다 | 람쥐썬더' }
+  if (!article) {
+    return { title: '글을 찾을 수 없습니다 | 기록하는 사람' }
   }
   return {
-    title: `${article.title} | 람쥐썬더`,
+    title: `${article.title} | 기록하는 사람`,
     description: article.content_text?.slice(0, 160) ?? '',
     openGraph: {
       title: article.title,
@@ -28,13 +28,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function ThoughtPage({ params }: Props) {
   const { id } = await params
   const article = await getArticleById(id)
 
-  if (!article || !article.tags.includes('portfolio:blog')) {
-    notFound()
-  }
+  if (!article) notFound()
+
+  const isThought = article.tags.some((t) => t === 'portfolio:thought' || t === 'portfolio:blog')
+  if (!isThought) notFound()
 
   const html = article.content ? renderArticleHTML(article.content) : ''
 
@@ -53,25 +54,22 @@ export default async function BlogPostPage({ params }: Props) {
       <FadeIn>
         <article>
           <Link
-            href="/blog"
-            className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-slate-600"
+            href="/thoughts"
+            className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text-primary)]"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            블로그 목록
+            &larr; 생각 목록
           </Link>
 
           <header className="mb-10">
-            <h1 className="mb-3 text-3xl font-bold leading-tight text-slate-900">
+            <h1 className="mb-3 text-3xl font-bold leading-tight">
               {article.title}
             </h1>
             <div className="flex flex-wrap items-center gap-3">
-              {date && <time className="text-sm text-slate-400">{date}</time>}
+              {date && <time className="text-sm text-[var(--text-subtle)]">{date}</time>}
               {displayTags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5">
                   {displayTags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-500">
+                    <span key={tag} className="rounded-full bg-[var(--bg-muted)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-subtle)]">
                       {tag}
                     </span>
                   ))}
@@ -86,16 +84,13 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
 
-          <hr className="my-12 border-slate-200" />
+          <hr className="my-12 border-[var(--border)]" />
 
           <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-slate-600"
+            href="/thoughts"
+            className="text-sm font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text-primary)]"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            다른 글 보기
+            &larr; 다른 글 보기
           </Link>
         </article>
       </FadeIn>

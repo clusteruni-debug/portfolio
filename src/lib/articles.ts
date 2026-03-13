@@ -69,27 +69,69 @@ export async function getArticleById(id: string): Promise<PortfolioArticle | nul
   return toArticle(data)
 }
 
-export async function getProjectDescriptions(): Promise<Map<string, string>> {
-  if (!supabase) return new Map()
+export async function getFeaturedStories(): Promise<PortfolioArticle[]> {
+  if (!supabase) return []
 
   const { data, error } = await supabase
     .from('articles')
-    .select('tags, content_text')
-    .like('tags::text', '%portfolio:project:%')
+    .select('id, title, content_text, cover_image_url, tags, published_at')
+    .contains('tags', ['portfolio:featured'])
+    .like('tags::text', '%portfolio:story:%')
     .eq('status', 'published')
     .is('deleted_at', null)
-    .returns<{ tags: string[]; content_text: string | null }[]>()
+    .order('published_at', { ascending: false })
+    .returns<ArticleRow[]>()
 
-  if (error || !data) return new Map()
+  if (error || !data) return []
+  return data.map(toArticle)
+}
 
-  const map = new Map<string, string>()
-  for (const row of data) {
-    if (!row.tags || !row.content_text) continue
-    for (const tag of row.tags) {
-      if (tag.startsWith('portfolio:project:')) {
-        map.set(tag.replace('portfolio:project:', ''), row.content_text)
-      }
-    }
-  }
-  return map
+export async function getLatestThoughts(limit: number): Promise<PortfolioArticle[]> {
+  if (!supabase) return []
+
+  const { data, error } = await supabase
+    .from('articles')
+    .select('id, title, content_text, cover_image_url, tags, published_at')
+    .or('tags.cs.{"portfolio:thought"},tags.cs.{"portfolio:blog"}')
+    .eq('status', 'published')
+    .is('deleted_at', null)
+    .order('published_at', { ascending: false })
+    .limit(limit)
+    .returns<ArticleRow[]>()
+
+  if (error || !data) return []
+  return data.map(toArticle)
+}
+
+export async function getStoryBySlug(slug: string): Promise<PortfolioArticle | null> {
+  if (!supabase) return null
+
+  const tag = `portfolio:story:${slug}`
+  const { data, error } = await supabase
+    .from('articles')
+    .select('id, title, content, content_text, cover_image_url, tags, published_at')
+    .contains('tags', [tag])
+    .eq('status', 'published')
+    .is('deleted_at', null)
+    .returns<ArticleRow>()
+    .maybeSingle()
+
+  if (error || !data) return null
+  return toArticle(data)
+}
+
+export async function getAllStories(): Promise<PortfolioArticle[]> {
+  if (!supabase) return []
+
+  const { data, error } = await supabase
+    .from('articles')
+    .select('id, title, content_text, cover_image_url, tags, published_at')
+    .like('tags::text', '%portfolio:story:%')
+    .eq('status', 'published')
+    .is('deleted_at', null)
+    .order('published_at', { ascending: false })
+    .returns<ArticleRow[]>()
+
+  if (error || !data) return []
+  return data.map(toArticle)
 }

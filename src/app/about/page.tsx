@@ -6,8 +6,8 @@ import AboutContent from '@/components/pages/AboutContent'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: '소개 | 람쥐썬더',
-  description: '기능보다 경험을 먼저 설계합니다 — 람쥐썬더 소개',
+  title: '소개 | 기록하는 사람',
+  description: '만들고, 쓰고, 기록하는 사람 — 람쥐썬더 소개',
 }
 
 export default async function AboutPage() {

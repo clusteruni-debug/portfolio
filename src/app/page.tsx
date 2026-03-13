@@ -1,9 +1,13 @@
-import { getProjectDescriptions } from '@/lib/articles'
+import { getFeaturedStories, getLatestThoughts } from '@/lib/articles'
 import HomePage from '@/components/pages/HomePage'
 
+export const revalidate = 60
+
 export default async function Home() {
-  const descriptions = await getProjectDescriptions()
-  // Map is not serializable — convert to plain object for client component
-  const projectDescriptions = Object.fromEntries(descriptions)
-  return <HomePage projectDescriptions={projectDescriptions} />
+  const [featuredStories, latestThoughts] = await Promise.all([
+    getFeaturedStories(),
+    getLatestThoughts(3),
+  ])
+
+  return <HomePage featuredStories={featuredStories} latestThoughts={latestThoughts} />
 }

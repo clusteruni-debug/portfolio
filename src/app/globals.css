@@ -1,19 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Noto+Sans+KR:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --bg-primary: #f4f6fb;
+  --bg-primary: #faf8f5;
   --bg-secondary: #ffffff;
-  --bg-muted: #e8edf5;
-  --bg-card: #ffffff;
-  --text-primary: #101828;
-  --text-secondary: #475467;
-  --text-subtle: #667085;
-  --accent-blue: #1d4ed8;
-  --accent-indigo: #4338ca;
-  --accent-teal: #0f766e;
-  --border-soft: #d0d5dd;
-  --shadow-soft: 0 18px 44px rgba(15, 23, 42, 0.1);
+  --bg-muted: #f3f0eb;
+  --text-primary: #1c1917;
+  --text-secondary: #44403c;
+  --text-subtle: #78716c;
+  --accent: #92400e;
+  --border: #e7e5e4;
+  --shadow-soft: 0 18px 44px rgba(28, 25, 23, 0.06);
+  --serif: Georgia, 'Noto Serif KR', serif;
+}
+
+html.dark {
+  --bg-primary: #1c1917;
+  --bg-secondary: #292524;
+  --bg-muted: #292524;
+  --text-primary: #fafaf9;
+  --text-secondary: #a8a29e;
+  --text-subtle: #78716c;
+  --accent: #fbbf24;
+  --border: #44403c;
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -22,88 +33,46 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 8% 8%, rgba(59, 130, 246, 0.08), transparent 34%),
-    radial-gradient(circle at 92% 14%, rgba(67, 56, 202, 0.06), transparent 38%),
-    var(--bg-primary);
+  background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.display-font {
-  font-family: 'Fraunces', 'Times New Roman', serif;
-}
-
-::-webkit-scrollbar {
-  width: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: #edf1f8;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c4ccda;
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a9b4c7;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.76);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.glow-blue,
-.glow-purple {
-  box-shadow: var(--shadow-soft);
-}
-
-/* Article content — adapted from X Article Editor */
+/* Article content */
 .article-content {
   font-family: 'Noto Sans KR', Georgia, serif;
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: 17px;
+  line-height: 1.85;
   color: var(--text-primary);
 }
 
 .article-content p {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .article-content h1 {
-  font-family: 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  margin-top: 36px;
+  margin-top: 40px;
   margin-bottom: 12px;
   color: var(--text-primary);
 }
 
 .article-content h2 {
-  font-family: 'Inter', sans-serif;
   font-size: 22px;
   font-weight: 600;
-  margin-top: 28px;
+  margin-top: 32px;
   margin-bottom: 10px;
   color: var(--text-primary);
 }
 
 .article-content h3 {
-  font-family: 'Inter', sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin-top: 24px;
@@ -119,11 +88,12 @@ body {
 }
 
 .article-content blockquote {
-  border-left: 3px solid var(--border-soft);
+  border-left: 3px solid var(--border);
   padding-left: 20px;
-  margin: 16px 0;
+  margin: 20px 0;
   color: var(--text-subtle);
   font-style: italic;
+  font-family: var(--serif);
 }
 
 .article-content ul,
@@ -152,6 +122,10 @@ body {
   margin: 16px 0;
 }
 
+html.dark .article-content pre {
+  background: #0c0a09;
+}
+
 .article-content pre code {
   background: none;
   padding: 0;
@@ -159,15 +133,15 @@ body {
 }
 
 .article-content a {
-  color: var(--accent-blue);
+  color: var(--accent);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
 }
 
 .article-content hr {
   border: none;
-  border-top: 1px solid var(--border-soft);
-  margin: 24px 0;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
 }
 
 .article-content s {
