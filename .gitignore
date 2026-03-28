@@ -32,3 +32,4 @@ dist-ssr
 .claude/
 .claude-lock
 .vercel
+next-env.d.ts
