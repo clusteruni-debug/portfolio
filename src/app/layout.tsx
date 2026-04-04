@@ -18,7 +18,12 @@ const notoSansKR = Noto_Sans_KR({
   variable: '--font-noto-sans-kr',
 })
 
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : 'http://localhost:5110'
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: '기록하는 사람',
   description: '만들고, 쓰고, 기록합니다 — 람쥐썬더의 기록 공간',
   icons: { icon: '/favicon.svg' },

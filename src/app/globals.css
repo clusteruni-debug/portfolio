@@ -13,6 +13,8 @@
   --border: #e7e5e4;
   --shadow-soft: 0 18px 44px rgba(28, 25, 23, 0.06);
   --serif: Georgia, 'Noto Serif KR', serif;
+  --code-bg: #1e293b;
+  --code-text: #e2e8f0;
 }
 
 html.dark {
@@ -25,10 +27,16 @@ html.dark {
   --accent: #fbbf24;
   --border: #44403c;
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.2);
+  --code-bg: #0c0a09;
+  --code-text: #e2e8f0;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-inter), 'Apple SD Gothic Neo', sans-serif;
 }
 
 body {
@@ -114,16 +122,12 @@ body {
 }
 
 .article-content pre {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: 16px 20px;
   border-radius: 12px;
   overflow-x: auto;
   margin: 16px 0;
-}
-
-html.dark .article-content pre {
-  background: #0c0a09;
 }
 
 .article-content pre code {

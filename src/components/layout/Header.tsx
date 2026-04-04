@@ -17,17 +17,13 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const closeMenu = () => setMenuOpen(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [pathname])
 
   return (
     <motion.header
@@ -92,6 +88,7 @@ export default function Header() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    onClick={closeMenu}
                     className={`block py-2.5 text-sm font-medium transition-colors ${
                       pathname === link.href || pathname.startsWith(link.href + '/')
                         ? 'text-[var(--text-primary)]'
