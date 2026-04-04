@@ -1,5 +1,49 @@
 # Changelog
 
+## 2026-04-05
+
+### Tech Debt Audit (full-sweep)
+- AGENTS.md/CLAUDE.md/README.md rewritten — all referenced stale Vite-era stack
+- `<img>` → `next/image` with Supabase remotePatterns (3 pages + StoryCard)
+- Inline SVG → `lucide-react` (Header: Menu/X, ThemeToggle: Sun/Moon)
+- StoryCard hover: translate-y/scale/shadow → border-color only (workspace design rule)
+- Noto Sans KR: `<link>` tag → `next/font/google` CSS variable
+- CSS hardcoded hex in `pre` blocks → CSS variables (`--code-bg`, `--code-text`)
+- `NEXT_PUBLIC_` env vars → server-only with fallback
+- ESLint flat config created (`eslint.config.mjs`)
+- Inter font applied to headings (was declared but never used in CSS)
+- `metadataBase` added for OG image resolution
+- `sitemap.ts` + `robots.ts` added for SEO
+- `.gitignore` Vite remnants removed
+- React 19 lint compliance: Header useEffect→onClick, ThemeToggle→useSyncExternalStore
+
+## 2026-03-29
+
+### Maintenance
+- Added `next-env.d.ts` to `.gitignore`
+
+## 2026-03-13
+
+### Redesign — Tech Showcase to Story-Driven Personal Site
+- Complete identity shift: tech portfolio → "만들고 쓰고 기록하는 사람"
+- New sections: IntroSection, FeaturedStoriesSection, LatestThoughtsSection, AboutTeaserSection
+- Components: StoryCard, ThoughtCard, ScrollReveal, FadeIn
+- Design system: warm neutral (cream bg, stone text, amber accent), dark mode toggle
+- Typography: Inter (headings) + Noto Sans KR (body), 18px base, serif for blockquotes
+- CMS content rendering via TipTap `generateHTML` (server-side)
+- All pages have `generateMetadata()` for SEO
+
+## 2026-03-12
+
+### Architecture Migration
+- **Vite SPA → Next.js 16 App Router** — full rewrite
+- **CMS integration**: Supabase `articles` table via `portfolio:*` tag convention
+- **Deployment**: GitHub Pages → Vercel (auto-deploy on push)
+- **Routing**: ISR 60s for listings, dynamic SSR for detail pages
+- `/blog/*` → `/thoughts/*` redirect for SEO continuity
+- Server-side data fetching only (no Supabase JS shipped to client)
+- Added `.vercel` to `.gitignore`
+
 ## 2026-02-20
 
 ### Completed
@@ -7,7 +51,6 @@
 - Tech stack section removed and replaced with "Things I Want to Say" message section (`#message`)
 - Hero/Projects/ProjectCard/Contact/Footer — complete layout/typography/color system overhaul
 - Header navigation updated: "Tech Stack" -> "Things I Want to Say"
-- Design reference: Clean layout tone inspired by Stripe, Vercel, Framer portfolio templates
 - Build verification: `npm run build` passed
 
 ## 2026-02-20
@@ -25,33 +68,11 @@
 - Added githubUrl data for 6 projects
 - Added GitHub icon link to ProjectCard (displayed alongside liveUrl)
 
-### Next
-- Replace project screenshots (placeholder -> actual)
-- Improve Hero title line break
-
 ## 2026-02-08
 
-### Completed
+### Initial Release
 - Project initialization (Vite + React + TS + Tailwind v4 + Framer Motion)
-- Hero section (particle background, gradient orb, count-up animation)
-- Projects section (6 project cards, category filter, glow effects)
-- Skills section (3-column card grid, sequential fade-in)
-- Contact section (GitHub + Email links)
-- Header (fixed navigation, scroll glassmorphism)
-- Footer (vibe-coding credits, back-to-top button)
-- Interactive effects (particle background, mouse glow, scroll reveal)
-- GitHub Pages deployment (GitHub Actions, `clusteruni-debug/portfolio`)
-- Responsive layout (mobile 1-col / tablet 2-col / desktop 3-col)
-- Name changed to username (header, Hero, title, meta tags)
-- CSS layout bug fix (`* { margin:0 }` reset overriding Tailwind utilities)
-- Project card shadow/border visibility improvement
-- Tech stack horizontal badges -> 3-column card list layout change
-
-### Deployment
-- URL: https://clusteruni-debug.github.io/portfolio/
-- Repo: https://github.com/clusteruni-debug/portfolio
-
-### Next
-- Replace project screenshots (placeholder -> actual)
-- Add OG meta tags
-- Improve Hero title line break (word wrapping issue)
+- Hero section, Projects section (6 cards), Skills section, Contact section
+- Header (fixed navigation, scroll glassmorphism), Footer
+- GitHub Pages deployment (`clusteruni-debug/portfolio`)
+- Responsive layout (mobile/tablet/desktop)
