@@ -77,11 +77,10 @@ src/
 │   ├── pages/                  # HomePage, AboutContent
 │   ├── ui/                     # ThemeToggle, StoryCard, ThoughtCard
 │   └── effects/                # ScrollReveal, FadeIn
-├── lib/
-│   ├── supabase.ts             # Server-side client
-│   ├── tiptap.ts               # Server-side HTML renderer
-│   └── articles.ts             # Data fetching (stories, thoughts, about)
-└── hooks/                      # useScrollProgress (client)
+└── lib/
+    ├── supabase.ts             # Server-side client
+    ├── tiptap.ts               # Server-side HTML renderer
+    └── articles.ts             # Data fetching (stories, thoughts, about)
 ```
 
 ## Verification Checklist

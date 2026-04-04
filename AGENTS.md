@@ -3,18 +3,21 @@
 > Global rules: See `~/.codex/instructions.md`
 
 ## Overview
-- **Stack**: Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion
-- **Deployment**: GitHub Pages (Actions auto-build)
-- **DB**: None (static site)
+- **Stack**: Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion + Supabase + TipTap
+- **Deployment**: Vercel (auto-deploy on push)
+- **DB**: Supabase (shared instance `hgygyilcrkygnvaquvko` with Article Editor)
+- **Port**: 5110
 
 ## Directory Structure
-- `src/components/` — UI components
-- `src/data/projects.ts` — project data
-- `src/hooks/` — custom hooks
+- `src/app/` — App Router pages (layout, page, about, stories, thoughts, blog redirect)
+- `src/components/` — UI components (layout/, sections/, pages/, ui/, effects/)
+- `src/lib/` — supabase client, tiptap renderer, article data fetching
 
 ## Notes
-- Base path `/portfolio/` must be set
-- Dark theme default
+- CMS-driven: content fetched from Supabase `articles` table via `portfolio:*` tags
+- Light theme default with dark mode toggle (class-based)
+- All data fetching is server-side (no Supabase JS shipped to client)
+- ISR 60s revalidation on all listing pages
 
 ## Git Permissions (Common, cannot be overridden)
 - **Codex must NEVER run `git commit` / `git push`.**
