@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { PortfolioArticle } from '@/lib/articles'
 
 function getStorySlug(article: PortfolioArticle): string {
@@ -26,13 +27,15 @@ export default function StoryCard({ article }: StoryCardProps) {
 
   return (
     <Link href={`/stories/${slug}`} className="group block">
-      <article className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-soft)]">
+      <article className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] transition-colors duration-200 hover:border-[var(--accent)]">
         {article.cover_image_url && (
-          <div className="aspect-[2/1] overflow-hidden">
-            <img
+          <div className="relative aspect-[2/1] overflow-hidden">
+            <Image
               src={article.cover_image_url}
               alt={article.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         )}

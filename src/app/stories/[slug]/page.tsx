@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getStoryBySlug } from '@/lib/articles'
 import { renderArticleHTML } from '@/lib/tiptap'
@@ -63,7 +64,9 @@ export default async function StoryPage({ params }: Props) {
           </header>
 
           {article.cover_image_url && (
-            <img src={article.cover_image_url} alt={article.title} className="mb-10 w-full rounded-2xl" />
+            <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+              <Image src={article.cover_image_url} alt={article.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" />
+            </div>
           )}
 
           <div className="article-content" dangerouslySetInnerHTML={{ __html: html }} />

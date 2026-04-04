@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 interface AboutContentProps {
@@ -33,7 +34,9 @@ export default function AboutContent({ html, coverImageUrl }: AboutContentProps)
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           {coverImageUrl && (
-            <img src={coverImageUrl} alt="소개" className="mb-10 w-full rounded-2xl" />
+            <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+              <Image src={coverImageUrl} alt="소개" fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" />
+            </div>
           )}
           <div className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
         </motion.div>

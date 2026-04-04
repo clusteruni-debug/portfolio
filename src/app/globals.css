@@ -35,7 +35,7 @@ body {
   margin: 0;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: var(--font-noto-sans-kr), 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   font-size: 18px;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ body {
 
 /* Article content */
 .article-content {
-  font-family: 'Noto Sans KR', Georgia, serif;
+  font-family: var(--font-noto-sans-kr), Georgia, serif;
   font-size: 17px;
   line-height: 1.85;
   color: var(--text-primary);
