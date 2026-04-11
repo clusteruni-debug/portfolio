@@ -2,33 +2,127 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Portfolio — 3-layer token architecture
+ * See projects/portfolio/DESIGN.md for the full definition and rationale.
+ *
+ * Layers (strict direction: component → semantic → primitive):
+ *   Primitive  raw hex values, mode-agnostic
+ *   Semantic   purpose aliases, light values declared here; dark overrides
+ *              live in `html.dark { ... }` further down (class-based, NOT
+ *              media query — matches the pre-hydration script in layout.tsx)
+ *   Component  component-specific tokens (shadow, article sizes) inheriting
+ *              semantic
+ *   Legacy     brownfield aliases (--bg-primary, --text-primary, etc.)
+ *              preserved so existing `bg-[var(--bg-primary)]` utilities and
+ *              article-content selectors keep working
+ *   Motion     Framer Motion duration/easing scale as CSS declarations
+ */
+
 :root {
-  --bg-primary: #faf8f5;
-  --bg-secondary: #ffffff;
-  --bg-muted: #f3f0eb;
-  --text-primary: #1c1917;
-  --text-secondary: #44403c;
-  --text-subtle: #78716c;
-  --accent: #92400e;
-  --border: #e7e5e4;
+  /* ---------- Primitive: raw hex ---------- */
+  --color-cream-50: #faf8f5;
+  --color-cream-100: #f3f0eb;
+  --color-white: #ffffff;
+
+  --color-stone-50: #fafaf9;
+  --color-stone-200: #e7e5e4;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716c;
+  --color-stone-700: #44403c;
+  --color-stone-800: #292524;
+  --color-stone-900: #1c1917;
+  --color-stone-950: #0c0a09;
+
+  --color-amber-400: #fbbf24;
+  --color-amber-800: #92400e;
+
+  --color-slate-200: #e2e8f0;
+  --color-slate-800: #1e293b;
+
+  --color-red-500: #ef4444;
+  --color-emerald-500: #10b981;
+  --color-blue-500: #3b82f6;
+  --color-yellow-500: #f59e0b;
+
+  /* ---------- Semantic: purpose aliases (light mode) ---------- */
+  /* Dark overrides live in the `html.dark { ... }` block below. */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-white);
+  --color-surface-muted: var(--color-cream-100);
+  --color-foreground: var(--color-stone-900);
+  --color-foreground-muted: var(--color-stone-700);
+  --color-foreground-subtle: var(--color-stone-500);
+  --color-border: var(--color-stone-200);
+  --color-accent: var(--color-amber-800);
+  --color-focus-ring: var(--color-amber-800);
+  --color-code-bg: var(--color-slate-800);
+  --color-code-text: var(--color-slate-200);
+
+  /* State tokens — currently unused in the UI, reserved for future features
+   * and for tiptap.ts render-error fallback (see DESIGN.md follow-up #1). */
+  --color-success: var(--color-emerald-500);
+  --color-danger: var(--color-red-500);
+  --color-warning: var(--color-yellow-500);
+  --color-info: var(--color-blue-500);
+
+  /* ---------- Component: component-specific tokens ---------- */
   --shadow-soft: 0 18px 44px rgba(28, 25, 23, 0.06);
+  --article-body-font: var(--font-noto-sans-kr), Georgia, serif;
+  --article-body-size: 17px;
+  --article-body-leading: 1.85;
+  --article-h1-size: 28px;
+  --article-h2-size: 22px;
+  --article-h3-size: 18px;
+  --blockquote-border: 3px solid var(--color-border);
+  --blockquote-font: var(--serif);
+
+  /* ---------- Motion: Framer Motion scale as CSS declarations ---------- */
+  /* JS side (ScrollReveal/FadeIn) currently hardcodes matching numeric
+   * values — see DESIGN.md Section 4 for the CSS ↔ JS mapping table and
+   * Appendix follow-up #2 for the planned JS extraction. */
+  --duration-fast: 0.3s;
+  --duration-base: 0.4s;
+  --duration-slow: 0.6s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---------- Legacy aliases: brownfield migration bridge ---------- */
+  /* Preserved so existing `bg-[var(--bg-primary)]` arbitrary-value utilities
+   * (layout.tsx:47) + article-content selectors continue working unchanged.
+   * Do NOT use these names in new code — prefer semantic/component tokens. */
+  --bg-primary: var(--color-background);
+  --bg-secondary: var(--color-surface);
+  --bg-muted: var(--color-surface-muted);
+  --text-primary: var(--color-foreground);
+  --text-secondary: var(--color-foreground-muted);
+  --text-subtle: var(--color-foreground-subtle);
+  --accent: var(--color-accent);
+  --border: var(--color-border);
   --serif: Georgia, 'Noto Serif KR', serif;
-  --code-bg: #1e293b;
-  --code-text: #e2e8f0;
+  --code-bg: var(--color-code-bg);
+  --code-text: var(--color-code-text);
 }
 
+/* ---------- Dark mode: override semantic + component layers ----------
+ * Class-based (html.dark) — matches @custom-variant and the pre-hydration
+ * script in layout.tsx that reads localStorage + prefers-color-scheme.
+ * Do NOT convert to @media (prefers-color-scheme: dark) — user-toggleable
+ * class mode is an explicit Portfolio design decision. */
 html.dark {
-  --bg-primary: #1c1917;
-  --bg-secondary: #292524;
-  --bg-muted: #292524;
-  --text-primary: #fafaf9;
-  --text-secondary: #a8a29e;
-  --text-subtle: #78716c;
-  --accent: #fbbf24;
-  --border: #44403c;
+  --color-background: var(--color-stone-900);
+  --color-surface: var(--color-stone-800);
+  --color-surface-muted: var(--color-stone-800);
+  --color-foreground: var(--color-stone-50);
+  --color-foreground-muted: var(--color-stone-400);
+  /* --color-foreground-subtle intentionally unchanged — meta text stays */
+  /* low-contrast in both modes (stone-500 for both). */
+  --color-border: var(--color-stone-700);
+  --color-accent: var(--color-amber-400);
+  --color-focus-ring: var(--color-amber-400);
+  --color-code-bg: var(--color-stone-950);
+  /* --color-code-text intentionally unchanged — same slate-200 for both. */
+
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.2);
-  --code-bg: #0c0a09;
-  --code-text: #e2e8f0;
 }
 
 html {
@@ -49,14 +143,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color var(--duration-fast), color var(--duration-fast);
 }
 
 /* Article content */
 .article-content {
-  font-family: var(--font-noto-sans-kr), Georgia, serif;
-  font-size: 17px;
-  line-height: 1.85;
+  font-family: var(--article-body-font);
+  font-size: var(--article-body-size);
+  line-height: var(--article-body-leading);
   color: var(--text-primary);
 }
 
@@ -65,7 +159,7 @@ body {
 }
 
 .article-content h1 {
-  font-size: 28px;
+  font-size: var(--article-h1-size);
   font-weight: 700;
   margin-top: 40px;
   margin-bottom: 12px;
@@ -73,7 +167,7 @@ body {
 }
 
 .article-content h2 {
-  font-size: 22px;
+  font-size: var(--article-h2-size);
   font-weight: 600;
   margin-top: 32px;
   margin-bottom: 10px;
@@ -81,7 +175,7 @@ body {
 }
 
 .article-content h3 {
-  font-size: 18px;
+  font-size: var(--article-h3-size);
   font-weight: 600;
   margin-top: 24px;
   margin-bottom: 8px;
@@ -96,12 +190,12 @@ body {
 }
 
 .article-content blockquote {
-  border-left: 3px solid var(--border);
+  border-left: var(--blockquote-border);
   padding-left: 20px;
   margin: 20px 0;
   color: var(--text-subtle);
   font-style: italic;
-  font-family: var(--serif);
+  font-family: var(--blockquote-font);
 }
 
 .article-content ul,
