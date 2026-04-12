@@ -32,3 +32,4 @@ dist
 .claude-lock
 .vercel
 next-env.d.ts
+tsconfig.tsbuildinfo
