@@ -1,6 +1,6 @@
 # Portfolio — AGENTS.md
 
-> Global rules: See `~/.codex/instructions.md`
+> Global rules: see workspace root `AGENTS.md` and `config/codex-global/RUNTIME-CONTRACT.md`.
 
 ## Overview
 - **Stack**: Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion + Supabase + TipTap
@@ -20,10 +20,9 @@
 - ISR 60s revalidation on all listing pages
 
 ## Git Permissions (Common, cannot be overridden)
-- **Codex must NEVER run `git commit` / `git push`.**
-- Codex performs code changes + build verification only, and reports changed files + verification results upon completion.
-- All commit/push operations are handled by Claude Code (or the user).
-
+- Follow workspace root `AGENTS.md` section 3 and section 16 for Codex git permissions.
+- Codex may create a local commit only through the root gated commit flow; `git push` remains forbidden.
+- Task-specific review-only scopes may be stricter, but this project file must not globally override the root table.
 ## Multi-Platform Execution Context (Common)
 - This project operates on the premise of Windows source files + WSL /mnt/c/... accessing the same files.
 - External (laptop/mobile) work defaults to SSH -> WSL.
@@ -31,18 +30,18 @@
 - When confused about paths, refer to the "Development Environment (Multi-Platform)" section in CLAUDE.md first.
 
 <!-- BEGIN: CODEX_GIT_POLICY_BLOCK -->
-## Codex Git Permissions (Global Enforcement)
+## Codex Git Permissions (Workspace Policy)
 
-This section is a workspace-wide enforced rule and cannot be overridden by project documents.
+Project-local rules inherit root `AGENTS.md` section 3 and section 16.
 
 | Action | Claude Code/User | Codex |
-|--------|:----------------:|:-----:|
-| Code changes | YES | YES |
-| Build/test verification | YES | YES |
-| `git commit` | YES | **Forbidden** |
-| `git push` | YES | **Forbidden** |
+| --- | :---: | :---: |
+| Code modification | yes | yes |
+| Build/test verification | yes | yes |
+| `git commit` | yes | gated local only |
+| `git push` | yes | forbidden |
 
-- Codex performs code changes + verification + completion reporting only.
-- Commits/pushes are handled by Claude Code or the user.
-- This section takes precedence over any conflicting statements in the document.
+- Codex may create a local commit only when the root workspace Codex commit gate passes for the task.
+- Codex never pushes. Claude Code or the user handles push and integration ownership.
+- If this project needs stricter review-only behavior for a task, state it in that task's scope; otherwise root policy wins.
 <!-- END: CODEX_GIT_POLICY_BLOCK -->
