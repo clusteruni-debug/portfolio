@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { PenLine } from 'lucide-react'
 import ThoughtCard from '@/components/ui/ThoughtCard'
+import EmptyState from '@/components/ui/EmptyState'
 import ScrollReveal from '@/components/effects/ScrollReveal'
 import type { PortfolioArticle } from '@/lib/articles'
 
@@ -10,28 +12,40 @@ interface LatestThoughtsSectionProps {
 }
 
 export default function LatestThoughtsSection({ thoughts }: LatestThoughtsSectionProps) {
-  if (thoughts.length === 0) return null
+  const isEmpty = thoughts.length === 0
 
   return (
     <section className="mx-auto max-w-5xl px-6 py-16">
       <ScrollReveal>
         <div className="mb-8 flex items-end justify-between">
           <h2 className="text-2xl font-bold">최근 생각</h2>
-          <Link
-            href="/thoughts"
-            className="text-sm font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text-primary)]"
-          >
-            전체 보기 &rarr;
-          </Link>
+          {!isEmpty && (
+            <Link
+              href="/thoughts"
+              className="text-sm font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text-primary)]"
+            >
+              전체 보기 &rarr;
+            </Link>
+          )}
         </div>
       </ScrollReveal>
-      <div className="grid gap-2">
-        {thoughts.map((thought, i) => (
-          <ScrollReveal key={thought.id} delay={i * 0.08}>
-            <ThoughtCard article={thought} />
-          </ScrollReveal>
-        ))}
-      </div>
+      {isEmpty ? (
+        <ScrollReveal>
+          <EmptyState
+            icon={PenLine}
+            title="아직 메모가 없어요"
+            description="스치는 생각이나 짧은 기록을 여기 모아둘 거예요."
+          />
+        </ScrollReveal>
+      ) : (
+        <div className="grid gap-2">
+          {thoughts.map((thought, i) => (
+            <ScrollReveal key={thought.id} delay={i * 0.08}>
+              <ThoughtCard article={thought} />
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
     </section>
   )
 }

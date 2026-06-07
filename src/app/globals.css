@@ -34,6 +34,8 @@
   --color-stone-900: #1c1917;
   --color-stone-950: #0c0a09;
 
+  --color-amber-100: #fdebc8;
+  --color-amber-200: #f8dcab;
   --color-amber-400: #fbbf24;
   --color-amber-800: #92400e;
 
@@ -76,6 +78,15 @@
   --article-h3-size: 18px;
   --blockquote-border: 3px solid var(--color-border);
   --blockquote-font: var(--serif);
+
+  /* ---------- Personal warmth: handwritten font + single gradient ---------- */
+  /* Handwritten accent (Caveat). Latin-only flourishes — greetings, eyebrows,
+   * signature. Never apply to Korean text (no Hangul glyphs in Caveat). */
+  --font-script: var(--font-caveat), 'Segoe Script', cursive;
+  /* The project's ONE permitted gradient (workspace rule: max 1 gradient).
+   * Reserved for the hero avatar backdrop — a soft warm "spotlight" behind the
+   * 람쥐썬더 portrait. Light values here; dark override in html.dark below. */
+  --gradient-warm: radial-gradient(circle at 30% 25%, var(--color-amber-100) 0%, var(--color-amber-200) 45%, var(--color-surface-muted) 100%);
 
   /* ---------- Motion: Framer Motion scale as CSS declarations ---------- */
   /* JS side (ScrollReveal/FadeIn) currently hardcodes matching numeric
@@ -123,6 +134,8 @@ html.dark {
   /* --color-code-text intentionally unchanged — same slate-200 for both. */
 
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.2);
+  /* Dark warm spotlight: amber-800 wash fading into the dark surface. */
+  --gradient-warm: radial-gradient(circle at 30% 25%, rgba(146, 64, 14, 0.38) 0%, rgba(146, 64, 14, 0.14) 45%, var(--color-surface-muted) 100%);
 }
 
 html {

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PenLine } from 'lucide-react'
 import { getArticlesByTag } from '@/lib/articles'
 import ThoughtCard from '@/components/ui/ThoughtCard'
+import EmptyState from '@/components/ui/EmptyState'
 import FadeIn from '@/components/effects/FadeIn'
 
 export const revalidate = 60
@@ -38,20 +40,25 @@ export default async function ThoughtsPage() {
           &larr; 홈으로
         </Link>
 
+        <p
+          className="mb-2 text-xl text-[var(--accent)]"
+          style={{ fontFamily: 'var(--font-script)' }}
+        >
+          thoughts
+        </p>
         <h1 className="mb-3 text-3xl font-bold">생각</h1>
         <p className="mb-12 text-base text-[var(--text-secondary)]">
           만들면서 배운 것들, 생각의 조각들
         </p>
       </FadeIn>
 
-      {allArticles.length === 0 && (
-        <div className="py-20 text-center">
-          <p className="text-lg font-medium text-[var(--text-subtle)]">아직 글이 없습니다</p>
-          <p className="mt-2 text-sm text-[var(--text-subtle)]">곧 첫 번째 글이 올라옵니다.</p>
-        </div>
-      )}
-
-      {allArticles.length > 0 && (
+      {allArticles.length === 0 ? (
+        <EmptyState
+          icon={PenLine}
+          title="아직 글이 없어요"
+          description="스치는 생각이나 짧은 기록을 여기 모아둘 거예요."
+        />
+      ) : (
         <div className="grid gap-2">
           {allArticles.map((article) => (
             <ThoughtCard key={article.id} article={article} />

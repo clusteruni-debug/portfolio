@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_KR } from 'next/font/google'
+import { Inter, Noto_Sans_KR, Caveat } from 'next/font/google'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
@@ -16,6 +16,16 @@ const notoSansKR = Noto_Sans_KR({
   weight: ['400', '500', '700'],
   display: 'swap',
   variable: '--font-noto-sans-kr',
+})
+
+// Caveat — handwritten accent font for personal warmth (greetings, signature,
+// section eyebrows). Latin-only: used for short English/symbol flourishes, never
+// for Korean body text (Caveat has no Hangul glyphs).
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-caveat',
 })
 
 const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -37,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={`${inter.variable} ${notoSansKR.variable}`} suppressHydrationWarning>
+    <html lang="ko" className={`${inter.variable} ${notoSansKR.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,

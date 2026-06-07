@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import Avatar from '@/components/ui/Avatar'
 
 interface AboutContentProps {
   html: string | null
@@ -46,6 +47,15 @@ export default function AboutContent({ html, coverImageUrl }: AboutContentProps)
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
+          <div className="mb-8 flex items-center gap-5">
+            <Avatar size={88} shape="rounded" className="shrink-0" />
+            <p
+              className="text-2xl text-[var(--accent)]"
+              style={{ fontFamily: 'var(--font-script)' }}
+            >
+              nice to meet you
+            </p>
+          </div>
           <div className="mb-8">
             <p className="text-lg leading-relaxed text-[var(--text-secondary)]">
               만들고, 쓰고, 기록하는 사람입니다.
