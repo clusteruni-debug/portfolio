@@ -19,7 +19,7 @@ Vercel (auto-deploy on push)
 
 ## Supabase
 - Shares instance `hgygyilcrkygnvaquvko` with X Article Editor
-- Env: `.env.local` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY)
+- Env: `.env.local` (`SUPABASE_URL` / `SUPABASE_ANON_KEY`, with `NEXT_PUBLIC_*` fallbacks; `REVALIDATION_SECRET` for `/api/revalidate`)
 - All data fetching is server-side (no Supabase JS shipped to client)
 
 ## CMS Tag Convention
@@ -36,21 +36,23 @@ Vercel (auto-deploy on push)
 /                   → ISR 60s (intro + featured stories + latest thoughts + about teaser)
 /about              → ISR 60s (CMS or fallback)
 /stories            → ISR 60s (case study listing)
-/stories/[slug]     → Dynamic SSR (individual case study)
+/stories/[slug]     → Dynamic ISR 60s (individual case study)
 /thoughts           → ISR 60s (thought listing, merges portfolio:thought + portfolio:blog)
-/thoughts/[id]      → Dynamic SSR (individual thought piece)
+/thoughts/[id]      → Dynamic ISR 60s (individual thought piece)
 /blog/*             → Redirect to /thoughts/* (SEO continuity)
+POST /api/revalidate → Secret-protected on-demand path revalidation
 ```
 
 ## Design System
 - **Tone**: Warm neutral (cream #faf8f5 bg, stone text, amber accent)
 - **Dark mode**: Class-based (.dark on html), localStorage + prefers-color-scheme
 - **Typography**: Inter (headings) + Noto Sans KR (body), 18px base, 1.8 line-height
+- **Handwritten accent**: Caveat for short Latin greetings, signatures, and section eyebrows only (no Hangul glyphs)
 - **Serif**: Georgia / Noto Serif KR for blockquotes (var(--serif))
 - **No**: gradient-text, glass, glow, particle effects, tech badges
 
 ## SEO
-- All content pages have `generateMetadata()` (title, description, OG image)
+- Root metadata lives in `layout.tsx`; list pages export static metadata and dynamic detail pages use `generateMetadata()`
 - Content rendered server-side as HTML (TipTap generateHTML on server)
 - ISR with 60s revalidation for fresh content
 - /blog/* redirects preserve SEO continuity
@@ -63,10 +65,13 @@ src/
 │   ├── page.tsx                # Home (server → featured stories + latest thoughts)
 │   ├── about/page.tsx          # About (server → CMS content)
 │   ├── stories/page.tsx        # Stories listing (server)
-│   ├── stories/[slug]/page.tsx # Story detail (server → SSR with metadata)
+│   ├── stories/[slug]/page.tsx # Story detail (server → ISR 60s with metadata)
 │   ├── thoughts/page.tsx       # Thoughts listing (server)
-│   ├── thoughts/[id]/page.tsx  # Thought detail (server → SSR with metadata)
+│   ├── thoughts/[id]/page.tsx  # Thought detail (server → ISR 60s with metadata)
 │   ├── blog/[[...slug]]/page.tsx # Redirect → /thoughts/*
+│   ├── api/revalidate/route.ts    # Secret-gated on-demand path revalidation
+│   ├── robots.ts                  # Robots metadata route
+│   ├── sitemap.ts                 # CMS-backed sitemap metadata route
 │   ├── not-found.tsx           # 404
 │   ├── error.tsx               # Error boundary
 │   └── globals.css             # Color system (CSS vars, dark mode)
@@ -75,7 +80,7 @@ src/
 │   ├── sections/               # IntroSection, FeaturedStoriesSection,
 │   │                           # LatestThoughtsSection, AboutTeaserSection
 │   ├── pages/                  # HomePage, AboutContent
-│   ├── ui/                     # ThemeToggle, StoryCard, ThoughtCard
+│   ├── ui/                     # Avatar, EmptyState, ThemeToggle, StoryCard, ThoughtCard
 │   └── effects/                # ScrollReveal, FadeIn
 └── lib/
     ├── supabase.ts             # Server-side client
