@@ -14,7 +14,6 @@ Generated-by: scripts/extract-project-board.py
 ### Active Tasks - project:portfolio
 | TASK-ID | Owner-Agent | Status | Scope-Files | Notes | Change-Type |
 |---------|-------------|--------|-------------|-------|-------------|
-| PORTFOLIO-AUDIT-M8-DOC-SYNC-20260722-01 | codex | done | projects/portfolio/agent_docs/domain-map.md;projects/portfolio/CLAUDE.md | Checkpoint 32afcba; STATIC-ONLY build/lint/domain-map/diff passed; independent review pending; nested-repo closeout attribution bug recorded. | docs-only |
 
 ### Active File Locks
 <!-- 1 codex tasks transitioned review -> done at 2026-07-23T16:09:41+09:00: PORTFOLIO-AUDIT-M8-DOC-SYNC-20260722-01 -->
