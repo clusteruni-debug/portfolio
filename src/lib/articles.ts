@@ -121,6 +121,16 @@ export async function getStoryBySlug(slug: string): Promise<PortfolioArticle | n
   return toArticle(data)
 }
 
+/**
+ * PostgREST cannot prefix-match inside a text[] element (the `tags::text` cast it
+ * would take is rejected as `42883 operator does not exist: text[] ~~ unknown`),
+ * so `portfolio:story:<slug>` has to be matched after the fetch. That makes the
+ * row cap load-bearing: if the corpus ever exceeds it, older stories fall off the
+ * end of the page silently. Hence an explicit bound plus a loud warning at it,
+ * rather than relying on whatever default the server happens to apply.
+ */
+const STORY_SCAN_LIMIT = 1000
+
 export async function getAllStories(): Promise<PortfolioArticle[]> {
   if (!supabase) return []
 
@@ -130,9 +140,15 @@ export async function getAllStories(): Promise<PortfolioArticle[]> {
     .eq('status', 'published')
     .is('deleted_at', null)
     .order('published_at', { ascending: false })
+    .limit(STORY_SCAN_LIMIT)
     .returns<ArticleRow[]>()
 
   if (error || !data) return []
+  if (data.length === STORY_SCAN_LIMIT) {
+    console.warn(
+      `[getAllStories] hit the ${STORY_SCAN_LIMIT}-row scan limit — older stories may be missing. Paginate this query.`,
+    )
+  }
   return data
     .filter((row) => row.tags?.some((tag) => tag.startsWith('portfolio:story:')))
     .map(toArticle)
