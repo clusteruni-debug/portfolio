@@ -1,5 +1,31 @@
-# Portfolio — Next Session Handoff (2026-08-09: live rendering restored)
+# Portfolio — Next Session Handoff (2026-08-09: live rendering restored, then hardened)
 last_verified: 2026-08-09
+
+## Read this before touching the renderer: it is a security boundary
+
+Head `705f8fc`, pushed, deployed, live-verified. A review of the same day's work
+found a **stored XSS** in the renderer that had just been written.
+
+The link-scheme allowlist tested the raw `href`, but a browser strips ASCII
+tab/LF/CR from anywhere in a URL and trims leading C0 controls *before* parsing
+the scheme. So `java<TAB>script:alert(1)` matched none of the block patterns,
+fell through as a relative path, and was emitted as a live anchor — and the
+renderer's output goes straight into `dangerouslySetInnerHTML` on every public
+article page.
+
+The rule that fixes it, and the one to keep: **normalize the href to what the
+browser will actually navigate to, run the allowlist on that, and emit the
+normalized value.** Checking one string while rendering another is the entire
+bypass class. Image `src` goes through the same gate.
+
+If you add a node type or an attribute to this renderer, it inherits this
+contract. Attack it before shipping — the review's full attack list and the
+refuted cases are in `memory/reviews/2026-08-09-publish-flow-and-renderer-review.md`
+(workspace repo), so you do not have to rediscover which attacks fail and why.
+
+Verification worth repeating when you change it: bundle the module with esbuild
+and feed it the attack inputs directly. Four reviewers named this bug; one run
+proved it.
 
 Derivable state (status, latest commit, verified procedures) lives in
 `memory/reference/reference_project_portfolio_context.md`. This file carries only what no
@@ -68,8 +94,14 @@ articles render their bodies at `https://portfolio-chi-kohl-50.vercel.app/though
 
 ```
 portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/portfolio
-(자체 git 저장소, origin/master head 270de78, Vercel 자동 배포,
+(자체 git 저장소, origin/master head 705f8fc, Vercel 자동 배포,
 라이브 주소 https://portfolio-chi-kohl-50.vercel.app).
+
+src/lib/tiptap.ts는 보안 경계야. 렌더 결과가 dangerouslySetInnerHTML로 공개
+페이지에 그대로 들어가. 링크·이미지 주소는 "정규화 → 검사 → 정규화된 값 출력"
+순서를 반드시 지켜. 검사한 문자열과 출력한 문자열이 다르면 그 틈이 곧 우회야
+(2026-08-09에 탭 한 글자로 javascript: 링크가 통과하던 걸 막았어). 노드나
+속성을 추가하면 같은 계약을 물려받으니, 올리기 전에 공격 입력으로 직접 때려봐.
 
 이 사이트는 article-editor와 Supabase 인스턴스를 공유하고, portfolio:thought /
 portfolio:story:{slug} / portfolio:featured 태그로 글을 가져와. 렌더링은 전부
