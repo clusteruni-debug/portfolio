@@ -76,14 +76,15 @@ export async function getFeaturedStories(): Promise<PortfolioArticle[]> {
     .from('articles')
     .select('id, title, content_text, cover_image_url, tags, published_at')
     .contains('tags', ['portfolio:featured'])
-    .like('tags::text', '%portfolio:story:%')
     .eq('status', 'published')
     .is('deleted_at', null)
     .order('published_at', { ascending: false })
     .returns<ArticleRow[]>()
 
   if (error || !data) return []
-  return data.map(toArticle)
+  return data
+    .filter((row) => row.tags?.some((tag) => tag.startsWith('portfolio:story:')))
+    .map(toArticle)
 }
 
 export async function getLatestThoughts(limit: number): Promise<PortfolioArticle[]> {
@@ -126,12 +127,13 @@ export async function getAllStories(): Promise<PortfolioArticle[]> {
   const { data, error } = await supabase
     .from('articles')
     .select('id, title, content_text, cover_image_url, tags, published_at')
-    .like('tags::text', '%portfolio:story:%')
     .eq('status', 'published')
     .is('deleted_at', null)
     .order('published_at', { ascending: false })
     .returns<ArticleRow[]>()
 
   if (error || !data) return []
-  return data.map(toArticle)
+  return data
+    .filter((row) => row.tags?.some((tag) => tag.startsWith('portfolio:story:')))
+    .map(toArticle)
 }
