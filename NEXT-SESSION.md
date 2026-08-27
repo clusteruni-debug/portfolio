@@ -1,5 +1,9 @@
 # Portfolio — Next Session Handoff (2026-08-09: live rendering restored, then hardened)
-last_verified: 2026-08-09
+last_verified: 2026-08-27
+
+**Remaining work: this repo has no `docs/plans/` — there is no PLAN file to point at, and this
+file deliberately does not carry a backlog.** It holds only the renderer security contract,
+decisions taken, durable gotchas, and the paste-ready prompt.
 
 ## Read this before touching the renderer: it is a security boundary
 
