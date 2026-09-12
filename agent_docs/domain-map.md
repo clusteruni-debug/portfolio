@@ -1,4 +1,10 @@
-# Portfolio — CC/CX File Ownership
+# Portfolio — Domain and Coordination Map
+
+Use this map for technical boundaries. The active task and file locks name the
+assignee; model names do not reserve files. The session lead coordinates coupled
+architecture and integration work and may delegate bounded slices. Explicit user
+assignments and protected-operation approvals remain binding; root `AGENTS.md`
+owns review and Git rules.
 
 ## Current Shape
 
@@ -6,14 +12,14 @@ Portfolio is a Next.js App Router site. Published content is read server-side
 from the shared Supabase `articles` table; `portfolio:*` tags are the content
 and routing contract. There is no repository-local `src/data/projects.ts`.
 
-| Domain | File/Directory | Default Owner | Rationale |
+| Domain | File/Directory | Coordination | Rationale |
 |--------|---------------|:-------------:|-----------|
-| App Routes and UI | `src/app/**` except `src/app/api/**`, `src/components/**` | CX | CMS-driven pages, metadata, redirects, layout, visual presentation, and motion |
-| CMS Reads and Rendering | `src/lib/**` | CX | Server-side Supabase queries and TipTap JSON-to-HTML rendering; schema/security contracts route to CC |
-| Revalidation API | `src/app/api/revalidate/route.ts` | CC | `REVALIDATION_SECRET`-protected cache mutation and request contract |
-| Build, Deploy, and Project Docs | `package.json`, `next.config.ts`, `docs/deploy.md`, `CLAUDE.md`, `AGENTS.md` | CX | Vercel deployment, port/build metadata, and project guidance |
+| App Routes and UI | `src/app/**` except `src/app/api/**`, `src/components/**` | Bounded task assignee | CMS-driven pages, metadata, redirects, layout, visual presentation, and motion |
+| CMS Reads and Rendering | `src/lib/**` | Bounded task assignee | Server-side Supabase queries and TipTap JSON-to-HTML rendering; schema/security contracts require session-lead coordination and applicable approval |
+| Revalidation API | `src/app/api/revalidate/route.ts` | Session lead | `REVALIDATION_SECRET`-protected cache mutation and request contract |
+| Build, Deploy, and Project Docs | `package.json`, `next.config.ts`, `docs/deploy.md`, `CLAUDE.md`, `AGENTS.md` | Bounded task assignee | Vercel deployment, port/build metadata, and project guidance |
 
-> CC owns architecture plus auth, request-contract, shared-schema, and security-boundary changes; bounded page, render, query, and documentation work follows the table above.
+> Coordinate architecture, auth, request-contract, shared-schema, and security-boundary changes through the session lead; assign bounded page, render, query, and documentation work through the active task.
 
 ## Review Boundaries
 
