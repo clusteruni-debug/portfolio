@@ -1,12 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_KR, Caveat } from 'next/font/google'
+import { Noto_Sans_KR, Caveat } from 'next/font/google'
+import localFont from 'next/font/local'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+// Inter is self-hosted. In CI, next/font/google got Inter's CSS as `/l/font?kit=`
+// URLs and Turbopack rejected all 35 ("next/font/google queries have exactly one
+// entry"), so the CI build failed (run for 16e8bfd, 2026-09-23). This is the file
+// production already served: Google's Inter v20 latin variable woff2 (wght
+// 100-900), the only Inter file the site's text ever needs. SIL OFL 1.1, see
+// ./fonts/OFL.txt.
+const inter = localFont({
+  src: './fonts/InterVariable-latin.woff2',
+  weight: '300 700',
   display: 'swap',
   variable: '--font-inter',
 })
