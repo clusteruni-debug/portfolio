@@ -75,8 +75,22 @@ catalog. Preserve deployment IDs and browser evidence.
   records it as failed, with the user's negative verdict on the last take),
   `envelope` (a single cliché test that came out landscape instead of the
   requested 9:16; never posted) and `ramz-dance` (a raw generation with no post,
-  no user confirmation and no finished-deliverable record). Their source files,
-  posters and Blob objects were kept, not deleted. See `docs/videos.md`.
+  no user confirmation and no finished-deliverable record). Their source files
+  and posters are kept. See `docs/videos.md`.
+- Cleanup approved by the user on 2026-09-28:
+  - The Worker `portfolio-videos` was deleted at 17:26 +0900. The Cloudflare API
+    now answers "This Worker does not exist on your account" (code 10007).
+  - 250 local files (1,418,068,636 bytes) under `tmp/video-workers-migration`,
+    `tmp/video-r2-migration` and `tmp/video-asset-fit` were removed. Every MP4
+    among them had a byte-identical copy in `tmp/video-delivery` or
+    `public/videos/media`, and the 28 distinct copies were re-hashed after the
+    deletion. The rest were unit-test scratch. The JSON records, logs, scripts and
+    screenshots in those folders were kept, as was one trial encode
+    (`eunseol-dance-crf22_5-veryslow.mp4`) that has no other copy.
+  - The three withdrawn works' Blob objects (27,521,028 bytes) are also approved
+    for deletion. Local byte-identical copies are under `tmp/video-delivery/<id>/`,
+    so a restored work can be re-uploaded. The board records whether the deletion
+    has run.
 - Homepage featured works: `seoul-cat`, `thirty-seconds`, `pickup`.
 - Production was restored at 13:27 +0900 by promoting
   `73JGDYLtjfFgfq3i4UCmJT9o9Zvv`. The gallery was then committed (`79babd3`,
@@ -184,8 +198,8 @@ after the user requests it again.
 
 > Not adopted. Continuous playback failed from the user's network (requests were
 > served at LAX); Blob remains the host. Historical record. The Worker
-> `portfolio-videos.clusteruni.workers.dev` still exists; removing it needs the
-> user's OK.
+> `portfolio-videos.clusteruni.workers.dev` and the staged payloads were deleted
+> on 2026-09-28 with the user's approval.
 
 Task `PORTFOLIO-VIDEO-WORKERS-20260928-10` uploaded the exact 26 selected delivery
 files, totaling 193,648,104 bytes, to `portfolio-videos.clusteruni.workers.dev`.

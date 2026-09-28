@@ -156,7 +156,8 @@ Homepage and navigation link to the collection.
 
 > Not adopted (2026-09-28). Continuous playback failed from the user's network
 > and the user chose to stay on Blob. Historical record; do not run these steps.
-> The Worker still serves the 26 old files; removing it needs the user's OK.
+> The Worker and its staged payloads were deleted on 2026-09-28 with the user's
+> approval (`docs/deploy.md`, current state).
 
 **Status at the time, 2026-09-28:** upload was complete, but production cutover
 had not passed acceptance. All 26 objects are on Workers; the active catalog and
@@ -282,7 +283,8 @@ YouTube embeds are not implemented. Hosting quotas and sources are recorded in
 > Not adopted. After the review of 2026-09-28 the user decided not to use R2;
 > Vercel Blob stays the host. Historical record; do not run these steps. No R2
 > subscription, bucket or domain was created. The numbers below are that task's
-> snapshots and are not maintained.
+> snapshots and are not maintained. The staged payload folders were deleted on
+> 2026-09-28; their manifests and reports remain.
 
 Earlier on 2026-09-28 the user had accepted the recommendation to retain the Vercel website
 and move video delivery to R2. Task `PORTFOLIO-VIDEO-R2-20260928-11` resumes the
@@ -362,8 +364,10 @@ That task ended with local candidates; Workers publication is a separate task be
 | Eunseol dance | 34,856,084 bytes / 33.24 MiB | 25,822,430 bytes / 24.63 MiB | H.264 CRF 23, veryslow | 0.981502 |
 | Delivery | 27,672,170 bytes / 26.39 MiB | 24,139,595 bytes / 23.02 MiB | H.264 CRF 22, slow | 0.989103 |
 
-The files are `tmp/video-asset-fit/eunseol-dance-crf23-veryslow.mp4` and
-`tmp/video-asset-fit/delivery-crf22-slow.mp4`. `report.json` in that directory
+The files were `tmp/video-asset-fit/eunseol-dance-crf23-veryslow.mp4` and
+`tmp/video-asset-fit/delivery-crf22-slow.mp4`. Those two paths were removed on
+2026-09-28; byte-identical copies remain under `tmp/video-delivery/eunseol-dance/`
+and `tmp/video-delivery/delivery/`. `report.json` in `tmp/video-asset-fit`
 records their complete hashes and the approved source hashes. They were encoded
 from the approved originals, not from the previous compressed copies. Dimensions,
 frame counts, video/audio timestamps and audio payloads match the originals.
@@ -375,11 +379,11 @@ Using these two files with the other 24 unchanged delivery files totals
 193,648,104 bytes, with all 26 below 25 MiB each. Task 09 preserved original
 archive/preview hashes, the selection manifest and the active catalog; it did not
 upload, replace or delete remote files. Task 10 adds the two profiles to the
-publisher and handles Workers publication. The historical R2 payload still
-contains the previous 206,214,333-byte corpus.
+publisher and handles Workers publication. The historical R2 payloads were
+deleted on 2026-09-28.
 
-Historical verification commands for task 09's exact prepared files (its verifier
-also pins the pre-migration catalog; use task 10's current proof after activation):
+Historical verification commands for task 09's exact prepared files. They no
+longer run as written, because the MP4s they read were removed on 2026-09-28:
 
 ```powershell
 python -X utf8 tmp/video-asset-fit/fit.py --verify

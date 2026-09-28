@@ -201,6 +201,10 @@ custom player.
 The two copies fitted to the Workers 25 MiB limit are unused. Blob keeps the CRF 21
 copies, which score higher (Eunseol luma SSIM 0.9818 vs 0.9770).
 
+With the user's approval, the Worker and the staged R2/Workers payloads were
+deleted on 2026-09-28 (`docs/deploy.md`, current state). Nothing Cloudflare-hosted
+remains for this portfolio.
+
 ## R2 implementation follow-through, 2026-09-27
 
 The requested R2 migration keeps the site on Vercel and stages the existing
