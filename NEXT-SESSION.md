@@ -1,126 +1,107 @@
-# Portfolio — Next Session Handoff (2026-08-09: live rendering restored, then hardened)
-last_verified: 2026-08-27
+# Portfolio — Next Session Handoff (2026-09-28: video gallery on Git and Vercel Blob, finished works only)
+last_verified: 2026-09-28
 
-**Remaining work: this repo has no `docs/plans/` — there is no PLAN file to point at, and this
-file deliberately does not carry a backlog.** It holds only the renderer security contract,
-decisions taken, durable gotchas, and the paste-ready prompt.
+**Remaining work: this repo has no `docs/plans/`**, so there is no PLAN file to point at. The
+items below are open questions for the user and review proposals, not a backlog. Derivable state (status,
+latest commit, verified procedures) lives in `memory/reference/reference_project_portfolio_context.md`
+(workspace repo).
 
-## Read this before touching the renderer: it is a security boundary
+- Article renderer and data-layer gotchas — the renderer is an XSS boundary and failures are
+  swallowed by design: `memory/reference/reference_portfolio_durable_gotchas.md` (workspace
+  repo). Read it before touching `src/lib/tiptap.ts` or `src/lib/articles.ts`.
+- Earlier handoff blocks (2026-08-09): `docs/handoff/archive/NEXT-SESSION-2026-08.md`.
 
-Head `705f8fc`, pushed, deployed, live-verified. A review of the same day's work
-found a **stored XSS** in the renderer that had just been written.
+## 2026-09-28: video gallery
 
-The link-scheme allowlist tested the raw `href`, but a browser strips ASCII
-tab/LF/CR from anywhere in a URL and trims leading C0 controls *before* parsing
-the scheme. So `java<TAB>script:alert(1)` matched none of the block patterns,
-fell through as a relative path, and was emitted as a live anchor — and the
-renderer's output goes straight into `dangerouslySetInnerHTML` on every public
-article page.
+Head `6dccc2c` on origin/master. Production is the Git build `dpl_FqZ65mqnYkf3GQV3H4jgMdGvP4kG`
+on `https://portfolio-chi-kohl-50.vercel.app`; `/videos` shows 23 works.
 
-The rule that fixes it, and the one to keep: **normalize the href to what the
-browser will actually navigate to, run the allowlist on that, and emit the
-normalized value.** Checking one string while rendering another is the entire
-bypass class. Image `src` goes through the same gate.
+The binding rules are in `AGENTS.md`: a work needs evidence that it is a finished piece, video
+hosting is Vercel Blob with R2 and Workers not adopted, and production builds only from Git
+pushes. Numbers, the cleanup record and the release checklist: `docs/deploy.md`. Per-work
+evidence: `docs/videos.md`. Hosting evidence and the transfer-limit risk:
+`docs/reference/vercel-video-delivery.md`.
 
-If you add a node type or an attribute to this renderer, it inherits this
-contract. Attack it before shipping — the review's full attack list and the
-refuted cases are in `memory/reviews/2026-08-09-publish-flow-and-renderer-review.md`
-(workspace repo), so you do not have to rediscover which attacks fail and why.
+Verification: `node scripts/verify-videos.cjs --production` passed on the production builds,
+`node scripts/publish-videos.cjs --check` verified 23 of 23, and three long works played to the
+end from the user's connection (`tmp/video-blob-continuous-probe-20260928.json`, gitignored).
+Closeout re-check at 23:53 +0900: `vercel inspect` shows the deployment Ready on the production
+alias, and the live `/videos` HTML carries all 23 catalog ids and none of the three withdrawn ones.
 
-Verification worth repeating when you change it: bundle the module with esbuild
-and feed it the attack inputs directly. Four reviewers named this bug; one run
-proved it.
+### Waiting on the user
 
-Derivable state (status, latest commit, verified procedures) lives in
-`memory/reference/reference_project_portfolio_context.md`. This file carries only what no
-pipeline reconstructs: open human decisions, durable gotchas, and the paste-ready prompt.
+- Delete the untracked leftovers of the dropped hosting work? `scripts/migrate-videos-to-r2.cjs`,
+  `scripts/migrate-videos-to-workers.cjs`, `tests/r2-videos.test.cjs`,
+  `tests/workers-videos.test.cjs`, `cloudflare/`, and the withdrawn works' posters
+  `public/videos/posters/{envelope,hana-rin-giant,ramz-dance}.webp`. Nothing references them;
+  they stay until the user OKs that deletion on its own. (`memory/codex-session/` is a Codex
+  prewrite record from 2026-09-27, not part of this work.)
+- Dependabot reports 61 vulnerabilities on the default branch (2 critical). Not triaged.
+- Optional: post URLs for beolcho, delivery, seoul-fpv and boy-awakening. The user said on
+  2026-09-28 that all four were posted; no URL or date is recorded.
 
-## 2026-08-09: every article body on the live site had been failing to render
+### Proposed, not started
 
-Head `270de78`, pushed, Vercel production Ready and live-verified. The user reported it as
-"포트폴리오에 발행해도 콘텐츠를 제대로 못 가져온다".
+From the 2026-09-28 review (`memory/reviews/cc-review-PORTFOLIO-VIDEO-R2-20260928-11.md`,
+workspace repo), in priority order:
 
-Two independent bugs, both silent, both reproduced before fixing:
+1. A quality gate for the re-encoded copies (luma SSIM or VMAF), plus the user watching
+   Sweeper and Eunseol dance once.
+2. The continuous-playback probe inside the verifier; another Korean ISP and mobile.
+3. Player: mobile menu aria attributes, a retry control, captions.
+4. Catalog hygiene: provenance gaps, a definition for `selectionConfirmedAt`, removing the
+   `PORTFOLIO_VIDEO_BASE_URL` fallback.
 
-- **`renderArticleHTML` threw on every server render.** `src/lib/tiptap.ts` used
-  `generateHTML` from `@tiptap/react` v3, which serializes through the DOM and needs a
-  browser. Under ISR/RSC it threw `ReferenceError: window is not defined` every single
-  time; the function's own `try/catch` swallowed it and shipped the fallback string, so
-  every detail page silently showed "콘텐츠를 렌더링하지 못했습니다." with no error anywhere.
-  Reproduced with node against this project's own `node_modules` before changing anything.
-  Replaced with a dependency-free recursive JSON→HTML renderer (escaping, link-protocol
-  allowlist, unknown nodes degrade to their children, `articleLink` renders as plain text
-  so it never links back into the editor app).
-- **Story queries always returned `[]`.** `getAllStories()` and `getFeaturedStories()`
-  filtered with `.like('tags::text', '%portfolio:story:%')`. PostgREST rejects that cast —
-  `42883 operator does not exist: text[] ~~ unknown` — so `/stories` was permanently empty
-  and no story could ever be featured. Verified by curl against the live REST endpoint.
-  The `.contains('tags', [...])` form is valid and was kept; prefix matching now happens in
-  JS after the fetch.
+Hosting is re-opened only by a trigger. Hobby Blob allows 10 GB of transfer a month (about
+1,300 full plays at the 7.8 MB mean), and over a limit Blob is inaccessible for 30 days. Then
+pilot an R2 custom domain or Vercel Pro behind a measured playback probe first.
 
-Verification: `npx tsc --noEmit` and `npm run build` exit 0; a runtime smoke rendered a real
-article body pulled from the live database (1460 chars, no fallback), and confirmed
-`javascript:` hrefs are dropped and markup in text is escaped; after deploy, both live
-articles render their bodies at `https://portfolio-chi-kohl-50.vercel.app/thoughts/<id>`.
+### Gotchas from this session
 
-## Decisions taken, so they are not relitigated
-
-- **No new TipTap dependency.** `@tiptap/html` / `@tiptap/static-renderer` would also have
-  fixed the render bug. Rejected: the document model here is a small fixed node set, the
-  hand-rolled renderer is ~90 lines with no version coupling to the editor app, and the
-  editor's own custom nodes (`articleLink`, slash commands) would need registering anyway.
-  If the editor's schema grows substantially, revisit — that is the trigger.
-- **Featured is story-only by design.** `getFeaturedStories()` requires BOTH
-  `portfolio:featured` and a `portfolio:story:*` tag, so tagging a *thought* as featured
-  puts it nowhere on the home hero (it still appears under latest thoughts). This was left
-  as-is on 2026-08-09 and mentioned to the user; if they want featured thoughts, the home
-  section logic is the only thing that changes.
-
-## Durable gotchas
-
-- **This project renders entirely server-side and swallows errors by design.** `articles.ts`
-  returns `[]` on any Supabase error and `tiptap.ts` returns a fallback string — so a broken
-  query or renderer looks exactly like "no content", never like a failure. When something is
-  missing from the live site, reproduce the query/render directly (curl the REST endpoint,
-  run the renderer under node) rather than reading the page and guessing.
-- **Cast filters (`col::text`) are not available through PostgREST** for array columns.
-  Use `contains` / `overlaps`, or filter in JS after fetching.
-- **On-demand revalidation is not wired in production.** `POST /api/revalidate` exists and
-  article-editor proxies to it, but the Vercel project has only the two Supabase env vars —
-  `REVALIDATION_SECRET` (here) and `PORTFOLIO_URL` / `PORTFOLIO_REVALIDATION_SECRET` (in
-  article-editor) are unset, so the proxy 500s and publishing relies on the 60s ISR window.
-  That is acceptable and the user was told so; setting the secrets is a user action because
-  CC cannot write env files.
-- **Production alias is `https://portfolio-chi-kohl-50.vercel.app`** (`.vercel/project.json`
-  has the ids; `vercel inspect <deployment>` lists the aliases). There is no custom domain.
+- Release = commit, then push `master`. A `vercel deploy --prod` of uncommitted files lasts only
+  until the next push, whoever makes it (the 2026-09-28 10:12–13:27 `/videos` 404). Emergency
+  restore: `vercel promote <deployment-id> --yes`, then commit at once — the next Git build
+  takes the alias again.
+- `vercel blob` needs the store's read-write token; a linked, logged-in CLI does not supply it.
+  Load it in memory from the project env through the Vercel REST API (workspace
+  `memory/knowledge/ERROR-BOOK.md`, 2026-09-28); do not `vercel env pull`.
+- Claude Code auto mode refuses a credential-loading remote delete. Run the dry run yourself
+  and hand the user the delete line to run with `!`.
+- The public repo carries each work's archive `sourceFile` path and hashes. Checked on
+  2026-09-28: no secrets or personal paths.
 
 ## Paste-ready next-session prompt
 
 ```
 portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/portfolio
-(자체 git 저장소, origin/master head 705f8fc, Vercel 자동 배포,
-라이브 주소 https://portfolio-chi-kohl-50.vercel.app).
+(자체 git 저장소, origin/master head 6dccc2c, master에 push하면 Vercel이 자동으로
+프로덕션 빌드, 라이브 주소 https://portfolio-chi-kohl-50.vercel.app, 영상 갤러리는 /videos).
 
-src/lib/tiptap.ts는 보안 경계야. 렌더 결과가 dangerouslySetInnerHTML로 공개
-페이지에 그대로 들어가. 링크·이미지 주소는 "정규화 → 검사 → 정규화된 값 출력"
-순서를 반드시 지켜. 검사한 문자열과 출력한 문자열이 다르면 그 틈이 곧 우회야
-(2026-08-09에 탭 한 글자로 javascript: 링크가 통과하던 걸 막았어). 노드나
-속성을 추가하면 같은 계약을 물려받으니, 올리기 전에 공격 입력으로 직접 때려봐.
+영상 갤러리 현황(2026-09-28):
+- 23편 공개. 영상은 Vercel Blob 스토어 portfolio-videos에서 나가. Cloudflare R2와
+  Workers는 검토 끝에 안 쓰기로 했어 — 내가 새로 요청하기 전엔 다시 꺼내지 마.
+- 최종본만 올려. 완성본이라는 증거(내 확인, 내 SNS 게시, 제작 기록에 완성본으로 적힌 것)가
+  있어야 하고, 파일 이름의 final이나 수정 시각으로 추측하지 마. 규칙은
+  projects/portfolio/AGENTS.md에 있어.
+- 배포는 커밋 후 master push만. 커밋 안 한 파일을 vercel deploy --prod로 올리면 다음
+  push에 덮여 — 9/28에 그래서 /videos가 3시간 넘게 404였어. 급하면
+  vercel promote <배포ID> --yes로 살리고 바로 커밋해.
+- 배포 체크리스트와 수치는 docs/deploy.md, 작품별 근거는 docs/videos.md.
 
-이 사이트는 article-editor와 Supabase 인스턴스를 공유하고, portfolio:thought /
-portfolio:story:{slug} / portfolio:featured 태그로 글을 가져와. 렌더링은 전부
-서버 사이드야.
+내 결정 기다리는 것:
+1. 안 쓰기로 한 호스팅 작업의 추적 안 되는 파일들(scripts/migrate-videos-to-r2.cjs,
+   scripts/migrate-videos-to-workers.cjs, tests/r2-videos.test.cjs,
+   tests/workers-videos.test.cjs, cloudflare/)과 내린 3편 포스터
+   (public/videos/posters/envelope.webp, hana-rin-giant.webp, ramz-dance.webp)를 지울지.
+   지우기 전에 목록 보여주고 따로 OK 받아.
+2. Dependabot 취약점 61개(치명 2개)를 정리할지.
 
-2026-08-09에 두 가지를 고쳤어: ① 글 상세 페이지가 전부 "콘텐츠를 렌더링하지
-못했습니다"로 나오던 것 — @tiptap/react의 generateHTML이 브라우저 전용이라 서버에서
-매번 죽었고 try/catch가 그걸 삼켰어. 의존성 없는 자체 렌더러(src/lib/tiptap.ts)로
-교체했어. ② 스토리 목록이 항상 비어 있던 것 — .like('tags::text', ...) 가 PostgREST
-에서 거부(42883)돼서 늘 빈 배열이었고, JS 필터로 바꿨어. 둘 다 라이브 검증했어.
+제안만 되고 아직 안 한 개선: 재인코딩 화질 게이트(SSIM/VMAF), 연속 재생 검사를
+검증기에 넣기(다른 통신사·모바일), 플레이어 접근성(모바일 메뉴 aria, 재시도, 자막).
+자세한 건 projects/portfolio/NEXT-SESSION.md.
 
-주의할 것: 이 프로젝트는 에러를 조용히 삼키는 구조야. articles.ts는 Supabase 에러 시
-빈 배열을, tiptap.ts는 fallback 문자열을 돌려줘서 고장이 "콘텐츠 없음"처럼 보여.
-라이브에서 뭐가 안 보이면 페이지를 읽고 추측하지 말고 쿼리와 렌더러를 직접 재현해
-(REST 엔드포인트에 curl, 렌더러는 node로 호출).
-
-시작할 때 projects/portfolio/NEXT-SESSION.md 의 "Durable gotchas"를 읽어.
+글 렌더러(src/lib/tiptap.ts)를 건드리면 C:\vibe\memory\reference\reference_portfolio_durable_gotchas.md
+부터 읽어. 렌더 결과가 공개 페이지에 dangerouslySetInnerHTML로 들어가는 보안 경계라서
+링크·이미지 주소는 "정규화 → 검사 → 정규화된 값 출력" 순서를 지켜야 하고, 이 사이트는
+에러를 조용히 삼켜서 고장이 "콘텐츠 없음"처럼 보여.
 ```
