@@ -167,6 +167,11 @@ Evidence for Blob:
   LAX for all 31 recorded requests (client TCP RTT 130–651 ms) and played 12.84
   of 27.57 video seconds in 44.16 wall seconds. Nobody measured R2 from Korea,
   and a public R2 bucket is delivered by the same Cloudflare edge.
+- The same continuous test against Blob on 2026-09-28 at 14:12 +0900 (CDN cache
+  HIT): Eunseol dance played 27.57 s in 27.78 s, Delivery 68.92 s in 69.02 s and
+  Spider swing 15.17 s in 15.35 s, with zero waiting events
+  (`tmp/video-blob-continuous-probe-20260928.json`, ignored). One connection
+  only; other ISPs, mobile and a cold cache were not measured.
 - Capacity: the 23-work catalog delivers 178,693,305 bytes, about 18% of the Hobby
   plan's 1 GB storage.
 - No new vendor, subscription, domain or upload tooling is needed; the publish,

@@ -79,9 +79,17 @@ catalog. Preserve deployment IDs and browser evidence.
   posters and Blob objects were kept, not deleted. See `docs/videos.md`.
 - Homepage featured works: `seoul-cat`, `thirty-seconds`, `pickup`.
 - Production was restored at 13:27 +0900 by promoting
-  `73JGDYLtjfFgfq3i4UCmJT9o9Zvv`. The gallery is now committed, so the Git build
-  of task `PORTFOLIO-VIDEO-RESTORE-20260928-12` replaces that CLI deployment.
-  The board row records the verified deployment ID and evidence.
+  `73JGDYLtjfFgfq3i4UCmJT9o9Zvv`. The gallery was then committed (`79babd3`,
+  task `PORTFOLIO-VIDEO-RESTORE-20260928-12`) and pushed. Its Git build
+  `dpl_Arraz7f3oJwWr1vGBW4Jw7kVBE6j` was assigned to production automatically
+  and passed `node scripts/verify-videos.cjs --production` (23 metadata decodes,
+  8 plays with seeks, 0 browser errors; `tmp/video-gallery-production-20260928/`)
+  and `publish-videos.cjs --check` (23 verified).
+- Continuous playback from the user's connection, 14:12 +0900, CDN cache HIT:
+  Eunseol dance, Delivery and Spider swing each played to the end at 0.99× real
+  time or better with zero waiting events
+  (`tmp/video-blob-continuous-probe-20260928.json`). Other ISPs and mobile were
+  not measured.
 
 ## Published 2026-09-27
 
