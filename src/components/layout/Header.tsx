@@ -10,6 +10,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 const navLinks = [
   { label: '소개', href: '/about' },
   { label: '이야기', href: '/stories' },
+  { label: '영상', href: '/videos' },
   { label: '생각', href: '/thoughts' },
 ]
 
@@ -36,7 +37,7 @@ export default function Header() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
+      <nav className={`mx-auto flex w-full items-center justify-between px-6 py-4 ${pathname.startsWith('/videos') ? 'max-w-6xl sm:px-8' : 'max-w-5xl'}`}>
         <Link href="/" className="text-lg font-semibold text-[var(--text-primary)]">
           람쥐썬더
         </Link>

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getAllStories, getArticlesByTag } from '@/lib/articles'
+import { videos } from '@/lib/videos'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -10,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
     { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/stories`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/videos`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/thoughts`, changeFrequency: 'weekly', priority: 0.9 },
   ]
 
@@ -30,5 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...storyRoutes, ...thoughtRoutes]
+  const videoRoutes: MetadataRoute.Sitemap = videos.map((video) => ({ url: `${baseUrl}/videos/${video.id}`, changeFrequency: 'monthly', priority: 0.7 }))
+  return [...staticRoutes, ...storyRoutes, ...thoughtRoutes, ...videoRoutes]
 }

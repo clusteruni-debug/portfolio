@@ -4,6 +4,19 @@
 > Persona: product-landing + editorial — "observer / documenter"
 > Stack: Next.js 16 + React 19 + Tailwind v4 + Framer Motion + TipTap + Supabase
 
+## Video gallery extension (2026-09-27)
+
+The user requested a portfolio presentation for prompt-generated film work.
+The video routes use a larger editorial headline, a prominent featured still and
+a spacious collection of film images. The warm-neutral palette is retained;
+film mattes are black. Frames are contained without cropping, including portrait
+and square work. The collection uses one column on phones, two on tablets and
+three on desktop, with tool filters and search. The player occupies the full
+detail-page width, followed by a short introduction, credits and related films.
+Video-route navigation aligns to the wider collection container. Native controls
+never autoplay; listing pages do not fetch MP4s. Hover transforms respect reduced
+motion. The homepage features three representative works.
+
 ## Identity
 
 Portfolio's defining choice is the **triple-register typography** — Inter (sans) for scannable headings, Noto Sans KR for Korean body reading, Georgia + Noto Serif KR for blockquote emphasis — wrapped in a warm neutral palette (cream background + stone text + amber-brass accent) that intentionally refuses the typical "tech portfolio" aesthetic. There is no gradient text, no glass blur, no glow, no particle effects, no skill badges. The site exists to say "만들고 쓰고 기록합니다" (I make, write, and record), and every design decision subtracts noise around that sentence. Framer Motion provides a three-speed motion scale (fast/base/slow) for section reveals and fade-ins — never for decoration.

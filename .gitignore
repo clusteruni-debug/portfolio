@@ -36,3 +36,10 @@ tsconfig.tsbuildinfo
 
 .vercel
 .env*.local
+
+# Media copies for local previews. Originals remain in the production archive.
+/public/videos/media/
+/tmp/
+
+# Python bytecode from the video tooling tests
+__pycache__/
