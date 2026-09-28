@@ -116,15 +116,16 @@ checked for positive evidence that it is a finished piece:
 
 - User confirmation (8): thirty-seconds, pickup, doppelganger, seoul-cat, ktx-ink,
   sweeper, last-customer, eunseol-dance.
-- User post (11): hoodboy-sketch, burger-review, planche, same-prompt,
+- User post (15): hoodboy-sketch, burger-review, planche, same-prompt,
   spider-swing, eunseol-worldshatter, seedance-first, seedance-thirty and
   decade-shift on X; eunseol-han and eunseol-euljiro on Threads and Instagram
-  (vault prompt notes, `posted` field).
-- A production record naming the file as the lineage's finished deliverable (4):
-  beolcho (the assembled 45-second cut), delivery (edit v3, retitled after the
-  user's note), seoul-fpv (vault status `keeper`), boy-awakening (the completed
-  15-second assembly). These have no user post or confirmation yet; confirm them
-  with the user when convenient.
+  (vault prompt notes, `posted` field). Beolcho, delivery, seoul-fpv and
+  boy-awakening were also posted to social media, as the user stated on
+  2026-09-28; the audit had missed this because their records carried no post.
+  Their platforms, dates and post URLs are not recorded, so their detail pages
+  have no post link.
+
+All 23 works therefore have user confirmation or a user post.
 
 Withdrawn (source, poster and Blob object kept; re-adding the selection row
 restores a work):
