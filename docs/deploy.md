@@ -87,10 +87,14 @@ catalog. Preserve deployment IDs and browser evidence.
     deletion. The rest were unit-test scratch. The JSON records, logs, scripts and
     screenshots in those folders were kept, as was one trial encode
     (`eunseol-dance-crf22_5-veryslow.mp4`) that has no other copy.
-  - The three withdrawn works' Blob objects (27,521,028 bytes) are also approved
-    for deletion. Local byte-identical copies are under `tmp/video-delivery/<id>/`,
-    so a restored work can be re-uploaded. The board records whether the deletion
-    has run.
+  - The three withdrawn works' Blob objects (27,521,028 bytes) were deleted at
+    18:34 +0900, each by exact URL with its ETag as `--if-match`. The user ran
+    the step because the Claude Code auto-mode guard blocks remote deletion. The
+    store now holds exactly the 23 active objects, 178,693,305 bytes. All three URLs
+    returned 404 within about a minute, after the CDN purge. Receipts:
+    `tmp/video-cleanup/2026-09-28T09-34-41-004Z-withdrawn-delete/`. Local
+    byte-identical copies remain under `tmp/video-delivery/<id>/`, so a restored
+    work can be re-uploaded.
 - Homepage featured works: `seoul-cat`, `thirty-seconds`, `pickup`.
 - Production was restored at 13:27 +0900 by promoting
   `73JGDYLtjfFgfq3i4UCmJT9o9Zvv`. The gallery was then committed (`79babd3`,
