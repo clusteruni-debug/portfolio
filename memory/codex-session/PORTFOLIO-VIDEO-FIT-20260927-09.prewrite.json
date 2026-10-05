@@ -1,0 +1,48 @@
+{
+  "taskId": "PORTFOLIO-VIDEO-FIT-20260927-09",
+  "scopeRevision": 0,
+  "result": "PREWRITE_BLOCKED",
+  "timestamp": "2026-09-27T23:55:08.6544246+09:00",
+  "repoRoot": "C:\\vibe\\projects\\portfolio",
+  "plannedWritePath": [
+    "tmp/video-asset-fit",
+    "docs/videos.md",
+    "docs/reference/vercel-video-delivery.md"
+  ],
+  "declaredScope": [
+    "tmp/video-asset-fit",
+    "docs/videos.md",
+    "docs/reference/vercel-video-delivery.md"
+  ],
+  "approvalSource": "none",
+  "approvedActions": [],
+  "plannedOperations": [
+    "write",
+    "runtime"
+  ],
+  "detectedOperations": [
+    "write"
+  ],
+  "boardPath": "AGENT_TASK_BOARD.md",
+  "acceptanceContractRequired": false,
+  "goalGraphRequired": false,
+  "goalGraphPresent": false,
+  "goalGraphPath": "memory/codex-session/PORTFOLIO-VIDEO-FIT-20260927-09.goalgraph.md",
+  "violations": [
+    {
+      "code": "missing_session_meta",
+      "message": "No memory/codex-session metadata found for TaskId. Run scripts/codex_start.ps1 first.",
+      "file": ""
+    },
+    {
+      "code": "planned_operation_requires_explicit_approval",
+      "message": "Planned operation 'runtime' requires matching approvedActions and a non-none approvalSource.",
+      "file": ""
+    },
+    {
+      "code": "missing_write_approval",
+      "message": "Write approval is missing in session metadata. Start the task with scripts/codex_start.ps1 -ApprovalSource user -ApprovedActions write, or pass -AllowDocsOnlyNoApproval for docs-only planned writes.",
+      "file": ""
+    }
+  ]
+}

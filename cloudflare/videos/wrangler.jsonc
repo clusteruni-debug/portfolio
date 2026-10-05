@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-videos",
+  "account_id": "a4cf85ab96bc624c4b65d1ad57776431",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-27",
+  "workers_dev": true,
+  "preview_urls": false,
+  "cache": { "enabled": true },
+  "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "directory": "../../tmp/video-workers-migration/assets",
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}
