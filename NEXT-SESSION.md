@@ -1,5 +1,5 @@
 # Portfolio — Next Session Handoff (2026-09-28: video gallery on Git and Vercel Blob, finished works only)
-last_verified: 2026-09-28
+last_verified: 2026-10-09
 
 **Remaining work: this repo has no `docs/plans/`**, so there is no PLAN file to point at. The
 items below are open questions for the user and review proposals, not a backlog. Derivable state (status,
@@ -10,6 +10,17 @@ latest commit, verified procedures) lives in `memory/reference/reference_project
   swallowed by design: `memory/reference/reference_portfolio_durable_gotchas.md` (workspace
   repo). Read it before touching `src/lib/tiptap.ts` or `src/lib/articles.ts`.
 - Earlier handoff blocks (2026-08-09): `docs/handoff/archive/NEXT-SESSION-2026-08.md`.
+
+## 2026-10-09: Next.js 16.3.8 security upgrade
+
+`next` and `eslint-config-next` moved from ^16.1.6 to ^16.3.8. The lockfile holds next 16.3.8, and
+`npm audit fix` then installed eslint-config-next 16.4.0 (dev only). This closes the two critical Next.js
+advisories behind the Dependabot count below (workspace audit
+`docs/audits/2026-10-09-security-and-repo-sweep.md` §0).
+- Verified: `npm run build` 0 and `npx tsc --noEmit` 0 (CI runs both), `npm audit --omit=dev` 0.
+- Smoke test under `next start -H 127.0.0.1`: `GET /` returned 200 with the site title.
+- Left: five dev-only highs in the eslint-config-next chain. Their only offered fix is a downgrade.
+- Push and the Vercel build were still pending when this was written.
 
 ## 2026-09-28: video gallery
 
@@ -36,7 +47,8 @@ alias, and the live `/videos` HTML carries all 23 catalog ids and none of the th
   `public/videos/posters/{envelope,hana-rin-giant,ramz-dance}.webp`. Nothing references them;
   they stay until the user OKs that deletion on its own. (`memory/codex-session/` is a Codex
   prewrite record from 2026-09-27, not part of this work.)
-- Dependabot reports 61 vulnerabilities on the default branch (2 critical). Not triaged.
+- ~~Dependabot reports 61 vulnerabilities on the default branch (2 critical). Not triaged.~~ Handled on
+  2026-10-09 (block above).
 - Optional: post URLs for beolcho, delivery, seoul-fpv and boy-awakening. The user said on
   2026-09-28 that all four were posted; no URL or date is recorded.
 
@@ -74,7 +86,7 @@ pilot an R2 custom domain or Vercel Pro behind a measured playback probe first.
 
 ```
 portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/portfolio
-(자체 git 저장소, origin/master head 6dccc2c, master에 push하면 Vercel이 자동으로
+(자체 git 저장소, 10-09 Next.js 16.3.8 보안 업그레이드 커밋까지 master에 반영, master에 push하면 Vercel이 자동으로
 프로덕션 빌드, 라이브 주소 https://portfolio-chi-kohl-50.vercel.app, 영상 갤러리는 /videos).
 
 영상 갤러리 현황(2026-09-28):
@@ -94,7 +106,9 @@ portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/
    tests/workers-videos.test.cjs, cloudflare/)과 내린 3편 포스터
    (public/videos/posters/envelope.webp, hana-rin-giant.webp, ramz-dance.webp)를 지울지.
    지우기 전에 목록 보여주고 따로 OK 받아.
-2. Dependabot 취약점 61개(치명 2개)를 정리할지.
+
+Dependabot 취약점은 10-09에 Next.js 16.3.8로 정리했어. 실행에 쓰이는 부품은 0이고, 남은 5개는
+린트 도구 쪽이라 고치려면 다운그레이드여서 그대로 뒀어. [source: SESSION-20261009-13; added: 2026-10-09]
 
 제안만 되고 아직 안 한 개선: 재인코딩 화질 게이트(SSIM/VMAF), 연속 재생 검사를
 검증기에 넣기(다른 통신사·모바일), 플레이어 접근성(모바일 메뉴 aria, 재시도, 자막).
