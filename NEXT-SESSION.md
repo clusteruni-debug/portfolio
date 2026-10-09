@@ -20,7 +20,17 @@ advisories behind the Dependabot count below (workspace audit
 - Verified: `npm run build` 0 and `npx tsc --noEmit` 0 (CI runs both), `npm audit --omit=dev` 0.
 - Smoke test under `next start -H 127.0.0.1`: `GET /` returned 200 with the site title.
 - Left: five dev-only highs in the eslint-config-next chain. Their only offered fix is a downgrade.
-- Push and the Vercel build were still pending when this was written.
+- Pushed as `d97bfeb`. The Vercel production deploy is Ready and the live site serves the Next.js
+  16.3.8 client bundle. CI failed at `npm ci` (run 37929434310): the lockfile had been regenerated
+  with npm 11, which dropped the optional `@floating-ui/dom` entry. The follow-up commit restores it;
+  its CI run was still pending when this was written.
+- **Gotcha: check the lockfile with npm 10.** CI uses Node 22, so npm 10. npm 11 (local Node 24)
+  drops the optional `node_modules/@floating-ui/dom` entry that `@tiptap/extension-bubble-menu`
+  depends on, and adds `"peer": true` flags; npm 10 `npm ci` then fails with
+  `Missing: @floating-ui/dom@1.8.0 from lock file`. After any lockfile change run
+  `npx -y npm@10 ci --dry-run --ignore-scripts`; if it fails, regenerate with
+  `npx -y npm@10 install --package-lock-only --ignore-scripts`. article-editor has the same gap; its
+  CI smoke job uses `npm install` instead.
 
 ## 2026-09-28: video gallery
 
@@ -109,6 +119,9 @@ portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/
 
 Dependabot 취약점은 10-09에 Next.js 16.3.8로 정리했어. 실행에 쓰이는 부품은 0이고, 남은 5개는
 린트 도구 쪽이라 고치려면 다운그레이드여서 그대로 뒀어. [source: SESSION-20261009-13; added: 2026-10-09]
+package-lock.json을 바꿨으면 푸시 전에 npx -y npm@10 ci --dry-run --ignore-scripts로 확인해. 로컬 npm 11이
+@floating-ui/dom 항목을 빼면 CI(npm 10)가 설치를 거부해서, 10-09에 CI가 한 번 깨졌어.
+[source: SESSION-20261009-13; added: 2026-10-09]
 
 제안만 되고 아직 안 한 개선: 재인코딩 화질 게이트(SSIM/VMAF), 연속 재생 검사를
 검증기에 넣기(다른 통신사·모바일), 플레이어 접근성(모바일 메뉴 aria, 재시도, 자막).
