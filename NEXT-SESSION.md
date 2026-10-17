@@ -106,8 +106,14 @@ pilot an R2 custom domain or Vercel Pro behind a measured playback probe first.
 
 ```
 portfolio 작업이야. 워크스페이스는 C:\vibe, 프로젝트는 projects/portfolio
-(자체 git 저장소, 10-09 Next.js 16.3.8 보안 업그레이드 커밋까지 master에 반영, master에 push하면 Vercel이 자동으로
-프로덕션 빌드, 라이브 주소 https://portfolio-chi-kohl-50.vercel.app, 영상 갤러리는 /videos).
+(자체 git 저장소, master에 push하면 Vercel이 자동으로 프로덕션 빌드, 라이브 주소
+https://portfolio-chi-kohl-50.vercel.app, 영상 갤러리는 /videos).
+
+만든 것 페이지(/projects, 2026-10-17 배포, 134622f): 해커톤 지원서에 코딩 작업을 보여 주려고
+3월 개편 때 뺀 프로젝트 목록을 되살렸어. 디자인은 /videos 틀을 그대로 따름(내가 "디자인을
+통일해야" 한다고 했음). 데이터는 src/data/projects.ts. 크립토 봇은 기술만, 매매·수익 얘기 없이.
+맨 위 대표작은 비공개 AI 작업 환경이고 숫자(55·11,260·68·44)는 10-17 기준이라 인용 전에 다시 세.
+안 한 것: 카드 스크린샷, 홈에서 /projects로 가는 소개 칸. [source: 134622f; added: 2026-10-17]
 
 영상 갤러리 현황(2026-09-28):
 - 23편 공개. 영상은 Vercel Blob 스토어 portfolio-videos에서 나가. Cloudflare R2와
