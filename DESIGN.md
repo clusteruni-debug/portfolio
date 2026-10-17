@@ -4,6 +4,17 @@
 > Persona: product-landing + editorial — "observer / documenter"
 > Stack: Next.js 16 + React 19 + Tailwind v4 + Framer Motion + TipTap + Supabase
 
+## Projects page (2026-10-17)
+
+`/projects` ("만든 것") restores the project showcase removed in the 2026-03 redesign
+(`fbe028a`). The user asked that it match the existing design, so it reuses the video
+gallery layout as is: eyebrow rule, editorial headline with accent dot, count row with
+a script note, an IN THE SPOTLIGHT slot (the private agent workspace, shown as a muted
+stats panel since it has no image), then THE COLLECTION with group filter chips and
+borderless top-rule cards in 1/2/3 columns. Header width widens on `/projects` as on
+`/videos`. Content lives in `src/data/projects.ts`; links only to verified live pages.
+Approved by the user on 2026-10-17 after a local review.
+
 ## Video gallery extension (2026-09-27)
 
 The user requested a portfolio presentation for prompt-generated film work.

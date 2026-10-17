@@ -1,5 +1,5 @@
 # Portfolio — Next Session Handoff (2026-09-28: video gallery on Git and Vercel Blob, finished works only)
-last_verified: 2026-10-09
+last_verified: 2026-10-17
 
 **Remaining work: this repo has no `docs/plans/`**, so there is no PLAN file to point at. The
 items below are open questions for the user and review proposals, not a backlog. Derivable state (status,
@@ -10,6 +10,16 @@ latest commit, verified procedures) lives in `memory/reference/reference_project
   swallowed by design: `memory/reference/reference_portfolio_durable_gotchas.md` (workspace
   repo). Read it before touching `src/lib/tiptap.ts` or `src/lib/articles.ts`.
 - Earlier handoff blocks (2026-08-09): `docs/handoff/archive/NEXT-SESSION-2026-08.md`.
+
+## 2026-10-17: projects page
+
+Added `/projects` ("만든 것", nav item after 소개) for a hackathon application that needed
+coding work on the site. 18 entries in 4 groups plus the private agent workspace as the
+spotlight; data in `src/data/projects.ts`, layout copied from `/videos` (DESIGN.md).
+User decisions: crypto bots appear by technique only (no trading or profit wording); the
+workspace is the top item. Workspace numbers were counted on 2026-10-17 (55 registered
+projects, 11,260 commits, 68 ADRs, 44 hooks) and go stale; recount before quoting them.
+Not done: screenshots for cards, a homepage teaser section linking to `/projects`.
 
 ## 2026-10-09: Next.js 16.3.8 security upgrade
 
